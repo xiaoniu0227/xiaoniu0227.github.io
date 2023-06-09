@@ -5,7 +5,7 @@
     
     <link rel='stylesheet' href="/./css/dracula.css">
 
-        <title></title>
+        <title>docker 部署</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2.0">
 <link rel="stylesheet" href="/css/style.css">
@@ -73,11 +73,11 @@
             <article class="al_article">
                 <header>
                     <h1 class="al_page_title">
-                        
+                        docker 部署
                     </h1>
                     <div class="al_page_info dis_flex">
                         <div class="al_page_content_info">
-                            Thu June 8, 2023 09:11 PM
+                            Wed June 7, 2023 09:19 AM
                         </div>
 
                         
@@ -89,7 +89,7 @@
 
                 
                     <div class="al_page_content_outline">
-                        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#docker%E9%85%8D%E7%BD%AE"><span class="toc-text">docker配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9D%E5%A7%8B%E5%8C%96%E7%8E%AF%E5%A2%83"><span class="toc-text">1.初始化环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BF%9B%E8%A1%8Cyum%E6%BA%90%E9%85%8D%E7%BD%AE%E3%80%82"><span class="toc-text">2.进行yum源配置。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85docker%EF%BC%8C%E9%A6%96%E5%85%88%E9%9C%80%E8%A6%81%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%81%94%E7%BD%91%EF%BC%8C%E5%AE%89%E8%A3%85yum%E5%B7%A5%E5%85%B7"><span class="toc-text">3.安装docker，首先需要虚拟机联网，安装yum工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%85%8D%E7%BD%AE%E7%BD%91%E5%8D%A1%E8%BD%AC%E5%8F%91%E3%80%82"><span class="toc-text">4.配置网卡转发。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%88%A9%E7%94%A8yum%E8%BF%9B%E8%A1%8Cdocker%E5%AE%89%E8%A3%85"><span class="toc-text">5.利用yum进行docker安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E9%85%8D%E7%BD%AE%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F%E5%99%A8"><span class="toc-text">6.配置镜像加速器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%90%AF%E5%8A%A8docker"><span class="toc-text">6.启动docker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-docker%E5%88%9D%E4%BD%93%E9%AA%8C"><span class="toc-text">7.docker初体验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E8%8E%B7%E5%8F%96%E9%95%9C%E5%83%8F"><span class="toc-text">8.获取镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E5%88%9B%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8Cnginx%E5%AE%B9%E5%99%A8%E7%9A%84%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="toc-text">10.创建并运行nginx容器的命令：</span></a></li></ol></li></ol></li></ol>
+                        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#docker%E9%85%8D%E7%BD%AE"><span class="toc-text">docker配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9D%E5%A7%8B%E5%8C%96%E7%8E%AF%E5%A2%83"><span class="toc-text">1.初始化环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BF%9B%E8%A1%8Cyum%E6%BA%90%E9%85%8D%E7%BD%AE%E3%80%82"><span class="toc-text">2.进行yum源配置。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85docker%EF%BC%8C%E9%A6%96%E5%85%88%E9%9C%80%E8%A6%81%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%81%94%E7%BD%91%EF%BC%8C%E5%AE%89%E8%A3%85yum%E5%B7%A5%E5%85%B7"><span class="toc-text">3.安装docker，首先需要虚拟机联网，安装yum工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%85%8D%E7%BD%AE%E7%BD%91%E5%8D%A1%E8%BD%AC%E5%8F%91%E3%80%82"><span class="toc-text">4.配置网卡转发。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%88%A9%E7%94%A8yum%E8%BF%9B%E8%A1%8Cdocker%E5%AE%89%E8%A3%85"><span class="toc-text">5.利用yum进行docker安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E9%85%8D%E7%BD%AE%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F%E5%99%A8"><span class="toc-text">6.配置镜像加速器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%90%AF%E5%8A%A8docker"><span class="toc-text">6.启动docker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-docker%E5%88%9D%E4%BD%93%E9%AA%8C"><span class="toc-text">7.docker初体验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E8%8E%B7%E5%8F%96%E9%95%9C%E5%83%8F"><span class="toc-text">8.获取镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E5%88%9B%E5%BB%BA%E5%B9%B6%E8%BF%90%E8%A1%8Cnginx%E5%AE%B9%E5%99%A8%E7%9A%84%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="toc-text">10.创建并运行nginx容器的命令：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol>
                     </div>
                 
 
@@ -195,6 +195,10 @@
 <p><img src="/../images/45.jpg" alt="图 45"><br>修改index.html的内容<br>容器内没有vi命令，无法直接修改，我们用下面的命令来修改：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -i -e &#x27;s#Welcome to nginx#人工智能学院欢迎您#g&#x27; -e &#x27;s#&lt;head&gt;#&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;#g&#x27; index.html</span><br><span class="line">在浏览器访问自己的虚拟机地址，例如我的是：http://192.168.88.163</span><br></pre></td></tr></table></figure>
 <p><img src="/../images/46.jpg" alt="图 46"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">（一）当我关闭防火墙，准备启动docker时出现了报错，具体报错信息是</span><br><span class="line">Job for docker.service failed because the control process exited with error cod</span><br><span class="line">See &quot;systemctl status docker.service&quot; and &quot;journalcti -xe&quot; for details.因为没遇到过，所以我去查了百度，发现是防火墙可能是关闭错误了，根据百度上给的解决方案我关闭了selinux,具体方法就是修改config里面的内容，保存并退出后，，报错便不再出现。</span><br><span class="line">(二) 在创建新容器的时候我发现输入容器的name不会百分百运行出来，于是我将容器的id替换掉name后，就可以运行了。</span><br><span class="line">经过以上配置过程，过程中也遇到错误，也有不理解的问题，最后都通过百度或者询问身边的同学解决，这给我在本课程学习中提高了信心和对于知识的掌握。</span><br></pre></td></tr></table></figure>
+
+
+
 
                 </section>
 
