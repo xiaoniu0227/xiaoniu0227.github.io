@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        
+    
+    <link rel='stylesheet' href="/./css/dracula.css">
+
+        <title>spark全流程配置SparkHA|SparkYarn</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2.0">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="manifest" href="/site.webmanifest">
+
+    <meta name="generator" content="Hexo 6.3.0"></head>
+    <body>
+        <header class="al_header al_pos_fixed">
+    <div class="al_header_container dis_flex_jcenter">
+        <div class="al_header_container_left">
+            <div class="al_header_site_title">
+                <a href="/">Hexo</a>
+            </div>
+        </div>
+
+        <div class="dis_flex_jcenter">
+            <div class="al_header_setting">
+                <svg class="al_header_icon">
+                    <use xmlns="http://www.w3.org/2000/svg" xlink:href="/assets/svg_icons.svg#svg-menu"></use>
+                </svg>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="al_sidebar">
+
+    <div class="al_sidebar_overlay al_full_cover"></div>
+
+    <div class="al_pos_fixed al_sidebar_cnt">
+        <div class="dis_flex_acenter al_sidebar_header">
+            <h3>Hexo</h3>
+            <div class="al_sidebar_close al_header_setting">
+                <svg class="al_header_icon">
+                    <use xmlns="http://www.w3.org/2000/svg" xlink:href="/assets/svg_icons.svg#svg-close"></use>
+                </svg>
+            </div>
+        </div>
+
+        <div class="al_sidebar_author_cnt">
+
+            <div class="al_sidebar_author_info">
+                <h4>John Doe</h4>
+                <img class="al_sidebar_avatar" src="https://yourAvatorURL">
+                <p></p>
+            </div>
+
+            
+        </div>
+    </div>
+</div>
+
+        
+    <div class="dis_flex_center al_lightbox_cnt al_full_cover">
+        <img class="al_lightbox_img"/>
+    </div>
+    <div class="al_page_background dis_flex_center al_full_cover"></div>
+    <div class="al_page_container">
+        <div class="al_pos_ab al_fake_background"></div>
+        <div class="al_main_container al_shadow al_main_page_container">
+            <article class="al_article">
+                <header>
+                    <h1 class="al_page_title">
+                        spark全流程配置SparkHA|SparkYarn
+                    </h1>
+                    <div class="al_page_info dis_flex">
+                        <div class="al_page_content_info">
+                            Wed June 7, 2023 09:19 AM
+                        </div>
+
+                        
+
+                        
+                        <span class="tags"></span>
+                    </div>
+                </header>
+
+                
+                    <div class="al_page_content_outline">
+                        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%9C%A8Spark-Standlone%E9%9B%86%E7%BE%A4%E4%B8%8B"><span class="toc-text">一、在Spark Standlone集群下</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EZookeeper%E5%AE%9E%E7%8E%B0HA"><span class="toc-text">基于Zookeeper实现HA</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%EF%BC%9A%E5%90%AF%E5%8A%A8%E9%9B%86%E7%BE%A4"><span class="toc-text">二：启动集群</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Wordcount%E6%B5%8B%E8%AF%95"><span class="toc-text">Wordcount测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%EF%BC%9ASparkOnYarn%E6%A8%A1%E5%BC%8F%E7%8E%AF%E5%A2%83"><span class="toc-text">三：SparkOnYarn模式环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Spark-On-Yarn%E4%B8%A4%E7%A7%8D%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93"><span class="toc-text">Spark On Yarn两种模式总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93"><span class="toc-text">问题总结</span></a></li></ol>
+                    </div>
+                
+
+                
+                <section id="post-body">
+                    <h1 id="一、在Spark-Standlone集群下"><a href="#一、在Spark-Standlone集群下" class="headerlink" title="一、在Spark Standlone集群下"></a>一、在Spark Standlone集群下</h1><p> Master可能会遇到无法阻止的问题。解决问题就需要用到备用的Master，也就是所谓的HA模式。</p>
+<h2 id="基于Zookeeper实现HA"><a href="#基于Zookeeper实现HA" class="headerlink" title="基于Zookeeper实现HA"></a>基于Zookeeper实现HA</h2><p>前提：确保Zookeeper和HDFS均启动<br>（1）	进入&#x2F;export&#x2F;server&#x2F;spark&#x2F;conf目录下，修改spark-env.sh文件，删除SPARK_MASTER_HOST&#x3D;node1  ，因为这个配置说的是固定的master是谁了，不修改的话，就不能进行动态切换master。<br>这里把这段注释掉就行<br><img src="/../image-sparkyarn/1.png"></p>
+<p>（2）再在spark-env.sh中增加：<br>SPARK_DAEMON_JAVA_OPTS&#x3D;”-Dspark.deploy.recoveryMode&#x3D;ZOOKEEPER -Dspark.deploy.zookeeper.url&#x3D;node1:2181,node2:2181,node3:2181 -Dspark.deploy.zookeeper.dir&#x3D;&#x2F;spark-ha”<br>#spark.deploy.recoveryMode 指定HA模式 基于Zookeeper实现<br>#指定Zookeeper的连接地址<br>#指定在Zookeeper中注册临时节点的路径<br>（3）将spark-env.sh 分发到每一台服务器上（这里我配置的是node1，所以发到node2和node3上，根据自己实际情况改变）<br>scp spark-env.sh node2:&#x2F;export&#x2F;server&#x2F;spark&#x2F;conf&#x2F;<br>scp spark-env.sh node3:&#x2F;export&#x2F;server&#x2F;spark&#x2F;conf&#x2F;<br>到这里前置工作就做完了，注意别忘了启动HDFS和Zookeeper</p>
+<h1 id="二：启动集群"><a href="#二：启动集群" class="headerlink" title="二：启动集群"></a>二：启动集群</h1><p>（1）：在node1上启动一个master和全部的worker<br>在spark的安装目录下执行sbin&#x2F;start-all.sh<br>Jps一下查看进程（演示node1）<br><img src="/../image-sparkyarn/2.png"><br>然后再在node2上再启动一个备用的master进程<br>sbin&#x2F;start-master.sh<br>在node2上看一下进程，有master进程即可<br><img src="/../image-sparkyarn/3.png"><br>（2）：到浏览器进入我们的8080端口（如果80端口被占用那就顺延到81端口）<br><img src="/../image-sparkyarn/4.png"><br>此时代表80端口被占用了，所以就顺延到81端口<br><img src="/../image-sparkyarn/5.png"><br>同时也能看到node1的master是活的<br>同理连接一下node2</p>
+<p>（3）：提交一个spark任务到node1的master上<br> bin&#x2F;spark-submit –master spark:&#x2F;&#x2F;node1:7077 &#x2F;export&#x2F;server&#x2F;spark&#x2F;examples&#x2F;src&#x2F;main&#x2F;python&#x2F;pi.py 1000<br>提交完以后新建一个node1的标签页，然后杀死node1上的master进程<br><img src="/../image-sparkyarn/6.png"><br>然后回到原来标签页<br><img src="/../image-sparkyarn/7.png"><br>因为node1的master被干掉了，但是这个进程没有因此结束，这时候node2的master进程就马上顶上去，代替了node1的master进行工作，最后得出结果。<br>然后我们去网页看看node1和node2<br><img src="/../image-sparkyarn/8.png"><br><img src="/../image-sparkyarn/9.png"><br>node1连接不上了，因为node1的master已经死了，然后node2的master从备用状态变成了活着，下面还有刚刚完成的进程，这就是我们的HA模式。</p>
+<h1 id="Wordcount测试"><a href="#Wordcount测试" class="headerlink" title="Wordcount测试"></a>Wordcount测试</h1><p><img src="/../image-sparkyarn/10.png"><br>resultRDD &#x3D; sc.textFile(“hdfs:&#x2F;&#x2F;node1:8020&#x2F;pydata&#x2F;words.txt”) \<br>.flatMap(lambda line: line.split(“ “)) \<br>.map(lambda x: (x, 1)) \ .reduceByKey(lambda a, b: a + b)<br>resultRDD .collect()</p>
+<p><img src="/../image-sparkyarn/11.png"></p>
+<h1 id="三：SparkOnYarn模式环境"><a href="#三：SparkOnYarn模式环境" class="headerlink" title="三：SparkOnYarn模式环境"></a>三：SparkOnYarn模式环境</h1><p>（1）：确保HADOOP_CONF_DIR或者YARN_CONF_DIR在spark-env.sh和环境变量中<br>如果没有，在&#x2F;etc&#x2F;profile环境变量中加入<br>#HADOOP_CONF_DIR<br>export HADOOP_CONF_DIR&#x3D;$HADOOP_HOME&#x2F;etc&#x2F;hadoop</p>
+<p>别忘了重新加载环境变量source &#x2F;etc&#x2F;profile</p>
+<p>在&#x2F;export&#x2F;server&#x2F;spark&#x2F;conf&#x2F;spark-env.sh中加入<br>##HADOOP软件配置文件目录，读取HDFS上文件和运行YARN集群<br>HADOOP_CONF_DIR&#x3D;&#x2F;export&#x2F;server&#x2F;hadoop&#x2F;etc&#x2F;hadoop<br>YARN_CONF_DIR&#x3D;&#x2F;export&#x2F;server&#x2F;hadoop&#x2F;etc&#x2F;hadoop</p>
+<p>（2）连接到YARN中<br>bin&#x2F;pyspark –master yarn –deploy-mode client | cluster<br>#–deploy-mode 选项是指定部署模式, 默认是 客户端模式<br>#client就是客户端模式<br>#cluster就是集群模式<br>#–deploy-mode 仅可以用在YARN模式下</p>
+<p>这里注意：交互式环境 pyspark  和 spark-shell  无法运行 cluster模式</p>
+<p><img src="/../image-sparkyarn/12.png"><br>测试运行圆周率：采用client模式<br>SPARK_HOME&#x3D;&#x2F;export&#x2F;server&#x2F;spark<br>${SPARK_HOME}&#x2F;bin&#x2F;spark-submit \<br>–master yarn \<br>–deploy-mode client \<br>–driver-memory 512m \<br>–executor-memory 512m \<br>–num-executors 1 \<br>–total-executor-cores 2 \<br>${SPARK_HOME}&#x2F;examples&#x2F;src&#x2F;main&#x2F;python&#x2F;pi.py \<br>10</p>
+<p><img src="/../image-sparkyarn/13.png"><br>采用cluster模式：<br>${SPARK_HOME}&#x2F;bin&#x2F;spark-submit<br>–master yarn <br>–deploy-mode cluster <br>–driver-memory 512m <br>–executor-memory 512m <br>–num-executors 1 <br>–total-executor-cores 2 <br>–conf”spark.pyspark.driver.python&#x3D;&#x2F;export&#x2F;server&#x2F;anaconda3&#x2F;envs&#x2F;pyspark&#x2F;bin&#x2F;python” <br>–conf”spark.pyspark.python&#x3D;&#x2F;export&#x2F;server&#x2F;anaconda3&#x2F;envs&#x2F;pyspark&#x2F;bin&#x2F;python” <br>${SPARK_HOME}&#x2F;examples&#x2F;src&#x2F;main&#x2F;python&#x2F;pi.py<br>10</p>
+<p><img src="/../image-sparkyarn/14.png"><br>注意：上面提到的路径根据个人环境修改。</p>
+<h1 id="Spark-On-Yarn两种模式总结"><a href="#Spark-On-Yarn两种模式总结" class="headerlink" title="Spark On Yarn两种模式总结"></a>Spark On Yarn两种模式总结</h1><p>Client模式和Cluster模式最最本质的区别是：Driver程序运行在哪里<br>前者偏向于学习中测试使用，后者偏向于生产环境中</p>
+<p>具体流程步骤如下：<br>（1）、Driver在任务提交的本地机器上运行，Driver启动后会和ResourceManager通讯申请启动ApplicationMaster ；<br>（2）、随后ResourceManager分配Container，在合适的NodeManager上启动ApplicationMaster，此时的 ApplicationMaster的功能相当于一个ExecutorLaucher，只负责向ResourceManager申请Executor内存；<br>（3）、ResourceManager接到ApplicationMaster的资源申请后会分配Container，然后ApplicationMaster在资源分 配指定的NodeManager上启动Executor进程；<br>（4）、Executor进程启动后会向Driver反向注册，Executor全部注册完成后Driver开始执行main函数；<br>（5）、之后执行到Action算子时，触发一个Job，并根据宽依赖开始划分Stage，每个Stage生成对应的TaskSet，之后 将Task分发到各个Executor上执行</p>
+<h1 id="问题总结"><a href="#问题总结" class="headerlink" title="问题总结"></a>问题总结</h1><p>在测试StandAlone HA模式的时候，总会报错，查看日志发现是zookeeper没起来，还有在杀死node1上的master时发现进程一直连不上，最后才发现是node2的master没启动，所以说配置的时候一定要十分的细心。<br>在Spark On Yarn 配置中，在读取历史日志的时候，发现读取不了，上网查资料发现是安全模式打开了，然后把安全模式关闭就可以在18080端口看到历史服务了，也有Driver程序运行目录搞错了，没有切换到pyspark虚拟环境中等等，大多数错误就是不小心就踩坑了。</p>
+
+                </section>
+
+                
+                
+
+                
+
+            </article>
+
+            
+            <nav class="dis_flex al_post_nav">
+                <a class="al_post_nav_item dis_flex_acenter" href="/2023/06/07/docker/">
+                    
+                        <svg class="al_arrow">
+                            <use xmlns="http://www.w3.org/2000/svg" xlink:href="/assets/svg_icons.svg#svg-arrow-left"></use>
+                        </svg>
+                        <span class="al_text_ellipsis al_post_nav_desc">docker 部署</span>
+                    
+                </a>
+                <a class="al_post_nav_item dis_flex_acenter" href="/2023/05/31/spark-standalone/">
+                    
+                        <span class="al_text_ellipsis al_post_nav_desc">Spark Standalone环境部署</span>
+                        <svg class="al_arrow">
+                            <use xmlns="http://www.w3.org/2000/svg" xlink:href="/assets/svg_icons.svg#svg-arrow-right"></use>
+                        </svg>
+                    
+                </a>
+            </nav>
+        </div>
+    </div>
+
+
+        <div class="al_index_footer dis_flex_center">
+    <div class="al_index_footer_item al_index_footer_title">
+        John Doe
+    </div>
+
+    
+    
+
+    <div class="al_index_footer_item al_index_footer_extra">
+        Created By 
+        <a target="_blank" rel="noopener" href="https://github.com/iGuan7u/Acetolog">AcetoLog</a>
+         · Power By 
+        <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>
+    </div>
+
+    <div class="al_index_footer_item al_index_footer_extra_right">
+        All Right Reserved
+    </div>
+</div>
+
+        <script type="text/javascript" async="async" src="/javascripts/acelog.js"></script>
+        
+        
+        
+        
+        
+
+    </body>
+</html>
