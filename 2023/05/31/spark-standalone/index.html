@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        
+    
+    <link rel='stylesheet' href="/./css/dracula.css">
+
+        <title>Spark Standalone环境部署</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2.0">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="manifest" href="/site.webmanifest">
+
+    <meta name="generator" content="Hexo 6.3.0"></head>
+    <body>
+        <header class="al_header al_pos_fixed">
+    <div class="al_header_container dis_flex_jcenter">
+        <div class="al_header_container_left">
+            <div class="al_header_site_title">
+                <a href="/">Hexo</a>
+            </div>
+        </div>
+
+        <div class="dis_flex_jcenter">
+            <div class="al_header_setting">
+                <svg class="al_header_icon">
+                    <use xmlns="http://www.w3.org/2000/svg" xlink:href="/assets/svg_icons.svg#svg-menu"></use>
+                </svg>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="al_sidebar">
+
+    <div class="al_sidebar_overlay al_full_cover"></div>
+
+    <div class="al_pos_fixed al_sidebar_cnt">
+        <div class="dis_flex_acenter al_sidebar_header">
+            <h3>Hexo</h3>
+            <div class="al_sidebar_close al_header_setting">
+                <svg class="al_header_icon">
+                    <use xmlns="http://www.w3.org/2000/svg" xlink:href="/assets/svg_icons.svg#svg-close"></use>
+                </svg>
+            </div>
+        </div>
+
+        <div class="al_sidebar_author_cnt">
+
+            <div class="al_sidebar_author_info">
+                <h4>John Doe</h4>
+                <img class="al_sidebar_avatar" src="https://yourAvatorURL">
+                <p></p>
+            </div>
+
+            
+        </div>
+    </div>
+</div>
+
+        
+    <div class="dis_flex_center al_lightbox_cnt al_full_cover">
+        <img class="al_lightbox_img"/>
+    </div>
+    <div class="al_page_background dis_flex_center al_full_cover"></div>
+    <div class="al_page_container">
+        <div class="al_pos_ab al_fake_background"></div>
+        <div class="al_main_container al_shadow al_main_page_container">
+            <article class="al_article">
+                <header>
+                    <h1 class="al_page_title">
+                        Spark Standalone环境部署
+                    </h1>
+                    <div class="al_page_info dis_flex">
+                        <div class="al_page_content_info">
+                            Wed May 31, 2023 11:50 AM
+                        </div>
+
+                        
+
+                        
+                        <span class="tags"></span>
+                    </div>
+                </header>
+
+                
+                    <div class="al_page_content_outline">
+                        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Spark-Standalone"><span class="toc-text">Spark-Standalone</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E5%AE%89%E8%A3%85Anaconda"><span class="toc-text">一.安装Anaconda</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E6%89%80%E6%9C%89%E6%9C%BA%E5%99%A8%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">二.所有机器配置环境变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E6%96%87%E4%BB%B6"><span class="toc-text">配置环境文件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEworkers%E6%96%87%E4%BB%B6"><span class="toc-text">配置workers文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEspark-env-sh%E6%96%87%E4%BB%B6"><span class="toc-text">配置spark-env.sh文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9C%A8HDFS%E4%B8%8A%E4%BC%A0%E4%BB%B6%E8%BF%90%E8%A1%8C%E5%8E%86%E5%8F%B2%E5%AD%98%E6%94%BE%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-text">在HDFS上传件运行历史存放的文件夹</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEspark-defaults-conf%E6%96%87%E4%BB%B6"><span class="toc-text">配置spark-defaults.conf文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%85%8D%E7%BD%AElog4j-properties-%E6%96%87%E4%BB%B6"><span class="toc-text">配置log4j.properties 文件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%86spark%E5%AE%89%E8%A3%85%E6%96%87%E4%BB%B6%E5%88%86%E5%8F%91%E5%88%B0node2%EF%BC%8Cnode3%E4%B8%8A"><span class="toc-text">将spark安装文件分发到node2，node3上</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">检查环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E5%8E%86%E5%8F%B2%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">启动历史服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8Spark%E7%9A%84Master%E5%92%8CWorker%E8%BF%9B%E7%A8%8B"><span class="toc-text">启动Spark的Master和Worker进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8BMaster%E7%9A%84WEB-UI"><span class="toc-text">查看Master的WEB UI</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E5%88%B0Standalone%E9%9B%86%E7%BE%A4"><span class="toc-text">连接到Standalone集群</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#bin-x2F-pyspark"><span class="toc-text">bin&#x2F;pyspark</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#bin-x2F-spark-shell"><span class="toc-text">bin&#x2F;spark-shell</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#bin-x2F-spark-submit-PI"><span class="toc-text">bin&#x2F;spark-submit(PI)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%8E%86%E5%8F%B2%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">查看历史服务器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%80%BB%E7%BB%93"><span class="toc-text">3.总结</span></a></li></ol></li></ol>
+                    </div>
+                
+
+                
+                <section id="post-body">
+                    <h1 id="Spark-Standalone"><a href="#Spark-Standalone" class="headerlink" title="Spark-Standalone"></a>Spark-Standalone</h1><h2 id="一-安装Anaconda"><a href="#一-安装Anaconda" class="headerlink" title="一.安装Anaconda"></a>一.安装Anaconda</h2><p>上传Anaconda3-2021.05-Linux-x86_64.sh文件到Linux服务器上</p>
+<p><img src="/../image-standalone/1.jpg" alt="图 1">  </p>
+<p>安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh ./Anaconda3-2021.05-Linux-x86_64.sh</span><br></pre></td></tr></table></figure>
+<p><img src="/../image-standalone/2.jpg" alt="图 2">  </p>
+<p><img src="/../image-standalone/3.jpg" alt="图 3"> </p>
+<p><img src="/../image-standalone/4.jpg" alt="图 4">  </p>
+<p>重新进入到finalshell后查看</p>
+<p><img src="/../image-standalone/5.jpg" alt="图 5">  </p>
+<p>此时base表示已经安装完成</p>
+<h2 id="二-所有机器配置环境变量"><a href="#二-所有机器配置环境变量" class="headerlink" title="二.所有机器配置环境变量"></a>二.所有机器配置环境变量</h2><p>上传spark.jar包并解压</p>
+<p><img src="/../image-standalone/6.jpg" alt="图 6">  </p>
+<p><img src="/../image-standalone/7.jpg" alt="图 7">  </p>
+<h3 id="配置环境文件"><a href="#配置环境文件" class="headerlink" title="配置环境文件"></a>配置环境文件</h3><h5 id="配置workers文件"><a href="#配置workers文件" class="headerlink" title="配置workers文件"></a>配置workers文件</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 改名，将workers.template改名成workers</span><br><span class="line"></span><br><span class="line"># 进入到workers里编辑文件</span><br></pre></td></tr></table></figure>
+<p><img src="/../image-standalone/9.jpg" alt="图 9">  </p>
+<p><img src="/../image-standalone/10.jpg" alt="图 10">  </p>
+<h5 id="配置spark-env-sh文件"><a href="#配置spark-env-sh文件" class="headerlink" title="配置spark-env.sh文件"></a>配置spark-env.sh文件</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"># 1.改名，将spark-env.sh.template改名成为将spark-env.sh</span><br><span class="line"></span><br><span class="line"># 2.编辑saprk-env.sh,添加以下内容</span><br><span class="line"></span><br><span class="line">## 设置JAVA安装目录</span><br><span class="line">JAVA_HOME=/export/server/jdk</span><br><span class="line"></span><br><span class="line">## HADOOP软件配置文件目录，读取HDFS上文件和运行YARN集群</span><br><span class="line">HADOOP_CONF_DIR=/export/server/hadoop/etc/hadoop</span><br><span class="line">YARN_CONF_DIR=/export/server/hadoop/etc/hadoop</span><br><span class="line"></span><br><span class="line">## 指定spark老大Master的IP和提交任务的通信端口</span><br><span class="line"># 告知Spark的master运行在哪个机器上</span><br><span class="line">export SPARK_MASTER_HOST=node1</span><br><span class="line"># 告知sparkmaster的通讯端口</span><br><span class="line">export SPARK_MASTER_PORT=7077</span><br><span class="line"># 告知spark master的 webui端口</span><br><span class="line">SPARK_MASTER_WEBUI_PORT=8080</span><br><span class="line"></span><br><span class="line"># worker cpu可用核数</span><br><span class="line">SPARK_WORKER_CORES=1</span><br><span class="line"># worker可用内存</span><br><span class="line">SPARK_WORKER_MEMORY=1g</span><br><span class="line"># worker的工作通讯地址</span><br><span class="line">SPARK_WORKER_PORT=7078</span><br><span class="line"># worker的 webui地址</span><br><span class="line">SPARK_WORKER_WEBUI_PORT=8081</span><br><span class="line"></span><br><span class="line">## 设置历史服务器</span><br><span class="line"># 配置的意思是  将spark程序运行的历史日志 存到hdfs的/sparklog文件夹中</span><br><span class="line">SPARK_HISTORY_OPTS=&quot;-Dspark.history.fs.logDirectory=hdfs://node1:8020/sparklog/ -Dspark.history.fs.cleaner.enabled=true&quot;</span><br></pre></td></tr></table></figure>
+<p><img src="/../image-standalone/11.jpg" alt="图 11">  </p>
+<p><img src="/../image-standalone/12.jpg" alt="图 12">  </p>
+<h5 id="在HDFS上传件运行历史存放的文件夹"><a href="#在HDFS上传件运行历史存放的文件夹" class="headerlink" title="在HDFS上传件运行历史存放的文件夹"></a>在HDFS上传件运行历史存放的文件夹</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -mkdir /sparklog</span><br><span class="line">hadoop fs -chmod 777 /sparklog</span><br></pre></td></tr></table></figure>
+<p><img src="/../image-standalone/13.jpg" alt="图 13">  </p>
+<h5 id="配置spark-defaults-conf文件"><a href="#配置spark-defaults-conf文件" class="headerlink" title="配置spark-defaults.conf文件"></a>配置spark-defaults.conf文件</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 1. 改名</span><br><span class="line">mv spark-defaults.conf.template spark-defaults.conf</span><br><span class="line"></span><br><span class="line"># 2. 修改内容, 添加下内容</span><br><span class="line"></span><br><span class="line"># 开启spark的日期记录功能</span><br><span class="line">spark.eventLog.enabled 	true</span><br><span class="line"># 设置spark日志记录的路径</span><br><span class="line">spark.eventLog.dir	 hdfs://node1:8020/sparklog/ </span><br><span class="line"># 设置spark日志是否启动压缩</span><br><span class="line">spark.eventLog.compress 	true</span><br></pre></td></tr></table></figure>
+<p><img src="/../image-standalone/14.jpg" alt="图 14">  </p>
+<p><img src="/../image-standalone/15.jpg" alt="图 15">  </p>
+<h5 id="配置log4j-properties-文件"><a href="#配置log4j-properties-文件" class="headerlink" title="配置log4j.properties 文件"></a>配置log4j.properties 文件</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 1. 改名</span><br><span class="line">mv log4j.properties.template log4j.properties</span><br><span class="line"></span><br><span class="line"># 2.编辑log4j.properties，</span><br><span class="line">修改内容如下图所示</span><br></pre></td></tr></table></figure>
+<p><img src="/../image-standalone/16.jpg" alt="图 16">  </p>
+<p><img src="/../image-standalone/17.jpg" alt="图 17">  </p>
+<h3 id="将spark安装文件分发到node2，node3上"><a href="#将spark安装文件分发到node2，node3上" class="headerlink" title="将spark安装文件分发到node2，node3上"></a>将spark安装文件分发到node2，node3上</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scp -r spark-3.1.2-bin-hadoop3.2 node2:/export/server/</span><br><span class="line">scp -r spark-3.1.2-bin-hadoop3.2 node3:/export/server/</span><br></pre></td></tr></table></figure>
+<p>node2<br><img src="/../image-standalone/18.jpg" alt="图 18">  </p>
+<p>node3<br><img src="/../image-standalone/19.jpg" alt="图 19">  </p>
+<p>同时，在node2和node3上给spark安装目录添加软连接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /export/server/spark-3.1.2-bin-hadoop3.2 /export/server/spark</span><br></pre></td></tr></table></figure>
+<p>node2<br><img src="/../image-standalone/20.jpg" alt="图 20">  </p>
+<p>node3<br><img src="/../image-standalone/21.jpg" alt="图 21">  </p>
+<h3 id="检查环境变量"><a href="#检查环境变量" class="headerlink" title="检查环境变量"></a>检查环境变量</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">进入到profile里</span><br><span class="line">检查</span><br><span class="line">JAVA_HOME</span><br><span class="line">SPARK_HOME</span><br><span class="line">PYSPARK_PYTHON</span><br><span class="line">等环境变量是否正确指向正确的目录</span><br></pre></td></tr></table></figure>
+<p><img src="/../image-standalone/22.jpg" alt="图 22">  </p>
+<p><img src="/../image-standalone/23.jpg" alt="图 23">  </p>
+<p><img src="/../image-standalone/24.jpg" alt="图 24">  </p>
+<h3 id="启动历史服务器"><a href="#启动历史服务器" class="headerlink" title="启动历史服务器"></a>启动历史服务器</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sbin/start-history-server.sh</span><br></pre></td></tr></table></figure>
+<p><img src="/../image-standalone/25.jpg" alt="图 25">  </p>
+<h3 id="启动Spark的Master和Worker进程"><a href="#启动Spark的Master和Worker进程" class="headerlink" title="启动Spark的Master和Worker进程"></a>启动Spark的Master和Worker进程</h3><p><img src="/../image-standalone/26.jpg" alt="图 26">  </p>
+<h3 id="查看Master的WEB-UI"><a href="#查看Master的WEB-UI" class="headerlink" title="查看Master的WEB UI"></a>查看Master的WEB UI</h3><p>默认窗口设置的是8080</p>
+<p><img src="/../image-standalone/28.jpg" alt="图 28">  </p>
+<h2 id="连接到Standalone集群"><a href="#连接到Standalone集群" class="headerlink" title="连接到Standalone集群"></a>连接到Standalone集群</h2><h5 id="bin-x2F-pyspark"><a href="#bin-x2F-pyspark" class="headerlink" title="bin&#x2F;pyspark"></a>bin&#x2F;pyspark</h5><p>执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/pyspark --master spark://node1:7077</span><br></pre></td></tr></table></figure>
+<p><img src="/../image-standalone/29.jpg" alt="图 29">  </p>
+<h5 id="bin-x2F-spark-shell"><a href="#bin-x2F-spark-shell" class="headerlink" title="bin&#x2F;spark-shell"></a>bin&#x2F;spark-shell</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/spark-shell --master spark://node1:7077</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//测试代码</span><br><span class="line">sc.parallelize(Array(1,2,3,4,5)).map(x=&gt; x + 1).collect()</span><br></pre></td></tr></table></figure>
+<p><img src="/../image-standalone/30.jpg" alt="图 30">  </p>
+<h5 id="bin-x2F-spark-submit-PI"><a href="#bin-x2F-spark-submit-PI" class="headerlink" title="bin&#x2F;spark-submit(PI)"></a>bin&#x2F;spark-submit(PI)</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/spark-submit --master spark://node1:7077 /export/server/spark/examples/src/main/python/pi.py 100</span><br></pre></td></tr></table></figure>
+<p><img src="/../image-standalone/31.jpg" alt="图 31">  </p>
+<h3 id="查看历史服务器"><a href="#查看历史服务器" class="headerlink" title="查看历史服务器"></a>查看历史服务器</h3><p>历史服务器的默认端口是: 18080</p>
+<p><img src="/../image-standalone/32.jpg" alt="图 32">  </p>
+<h2 id="3-总结"><a href="#3-总结" class="headerlink" title="3.总结"></a>3.总结</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">这个spark-standalone部署的任务总体来说还是很简单的，</span><br><span class="line">从头到尾基本没有遇到什么问题，基本上很顺利的就结束了这个任务点。</span><br><span class="line">也就在连接到standalone集群时出现了拒绝连接的情况，</span><br><span class="line">结果发现是hdf集群和yarn集群没有启动，除此之外就没有什么问题了</span><br></pre></td></tr></table></figure>
+                </section>
+
+                
+                
+
+                
+
+            </article>
+
+            
+            <nav class="dis_flex al_post_nav">
+                <a class="al_post_nav_item dis_flex_acenter" href="/2023/06/07/Git%E6%95%99%E7%A8%8B/">
+                    
+                        <svg class="al_arrow">
+                            <use xmlns="http://www.w3.org/2000/svg" xlink:href="/assets/svg_icons.svg#svg-arrow-left"></use>
+                        </svg>
+                        <span class="al_text_ellipsis al_post_nav_desc">Git环境部署</span>
+                    
+                </a>
+                <a class="al_post_nav_item dis_flex_acenter" href="/">
+                    
+                </a>
+            </nav>
+        </div>
+    </div>
+
+
+        <div class="al_index_footer dis_flex_center">
+    <div class="al_index_footer_item al_index_footer_title">
+        John Doe
+    </div>
+
+    
+    
+
+    <div class="al_index_footer_item al_index_footer_extra">
+        Created By 
+        <a target="_blank" rel="noopener" href="https://github.com/iGuan7u/Acetolog">AcetoLog</a>
+         · Power By 
+        <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>
+    </div>
+
+    <div class="al_index_footer_item al_index_footer_extra_right">
+        All Right Reserved
+    </div>
+</div>
+
+        <script type="text/javascript" async="async" src="/javascripts/acelog.js"></script>
+        
+        
+        
+        
+        
+
+    </body>
+</html>
