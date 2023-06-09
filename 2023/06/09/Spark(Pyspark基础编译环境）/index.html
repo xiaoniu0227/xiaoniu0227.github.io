@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        
+    
+    <link rel='stylesheet' href="/./css/dracula.css">
+
+        <title>7.Spark(Pyspark基础编译环境）</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2.0">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="manifest" href="/site.webmanifest">
+
+    <meta name="generator" content="Hexo 6.3.0"></head>
+    <body>
+        <header class="al_header al_pos_fixed">
+    <div class="al_header_container dis_flex_jcenter">
+        <div class="al_header_container_left">
+            <div class="al_header_site_title">
+                <a href="/">Hexo</a>
+            </div>
+        </div>
+
+        <div class="dis_flex_jcenter">
+            <div class="al_header_setting">
+                <svg class="al_header_icon">
+                    <use xmlns="http://www.w3.org/2000/svg" xlink:href="/assets/svg_icons.svg#svg-menu"></use>
+                </svg>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="al_sidebar">
+
+    <div class="al_sidebar_overlay al_full_cover"></div>
+
+    <div class="al_pos_fixed al_sidebar_cnt">
+        <div class="dis_flex_acenter al_sidebar_header">
+            <h3>Hexo</h3>
+            <div class="al_sidebar_close al_header_setting">
+                <svg class="al_header_icon">
+                    <use xmlns="http://www.w3.org/2000/svg" xlink:href="/assets/svg_icons.svg#svg-close"></use>
+                </svg>
+            </div>
+        </div>
+
+        <div class="al_sidebar_author_cnt">
+
+            <div class="al_sidebar_author_info">
+                <h4>John Doe</h4>
+                <img class="al_sidebar_avatar" src="https://yourAvatorURL">
+                <p></p>
+            </div>
+
+            
+        </div>
+    </div>
+</div>
+
+        
+    <div class="dis_flex_center al_lightbox_cnt al_full_cover">
+        <img class="al_lightbox_img"/>
+    </div>
+    <div class="al_page_background dis_flex_center al_full_cover"></div>
+    <div class="al_page_container">
+        <div class="al_pos_ab al_fake_background"></div>
+        <div class="al_main_container al_shadow al_main_page_container">
+            <article class="al_article">
+                <header>
+                    <h1 class="al_page_title">
+                        7.Spark(Pyspark基础编译环境）
+                    </h1>
+                    <div class="al_page_info dis_flex">
+                        <div class="al_page_content_info">
+                            Fri June 9, 2023 11:28 AM
+                        </div>
+
+                        
+
+                        
+                        <span class="tags"></span>
+                    </div>
+                </header>
+
+                
+                    <div class="al_page_content_outline">
+                        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#7-1%E6%9C%AC%E5%9C%B0Pyspark%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-text">7.1本地Pyspark环境配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-2%E5%9C%A8PyCharm%E4%B8%AD%E9%85%8D%E7%BD%AE%E6%9C%AC%E5%9C%B0Python%E8%A7%A3%E9%87%8A%E5%99%A8"><span class="toc-text">7.2在PyCharm中配置本地Python解释器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-3%E5%AF%BC%E5%85%A5%E6%9E%84%E5%BB%BAPyspark-python%E8%84%9A%E6%9C%AC%E6%96%87%E4%BB%B6"><span class="toc-text">7.3导入构建Pyspark python脚本文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-4WordCount%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8B"><span class="toc-text">7.4	WordCount代码实例</span></a></li></ol>
+                    </div>
+                
+
+                
+                <section id="post-body">
+                    <h1 id="7-1本地Pyspark环境配置"><a href="#7-1本地Pyspark环境配置" class="headerlink" title="7.1本地Pyspark环境配置"></a>7.1本地Pyspark环境配置</h1><ul>
+<li><p>首先需要<code>本地安装 Anaconda</code>（下载安装过程在这不再讲解），利用Anaconda 创建基于Python3.8 的Pyspark 的虚拟环境。以下为安装命令：（命令在 Anaconda Powershell 中执行）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#创建虚拟环境 pyspark, 基于 Python 3.8</span><br><span class="line">conda create -n pyspark python=3.8</span><br><span class="line"></span><br><span class="line">#切换到虚拟环境内</span><br><span class="line">conda activate pyspark</span><br><span class="line"></span><br><span class="line">#在安装包的过程中如果速度过慢可通过指令手动添加镜像或者将国内源配置在 Anaconda 中方便下载，以下以本机为例添加镜像：</span><br><span class="line">conda config --set show_channel_urls yes</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后用记事本打开:C:\Users\用户名\<code>.condarc文件</code>, 将如下内容替换进文件内,保存即可:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">channels:</span><br><span class="line"> - defaults</span><br><span class="line">show_channel_urls: true</span><br><span class="line">default_channels:</span><br><span class="line"> - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main</span><br><span class="line"> - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r</span><br><span class="line"> - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2</span><br><span class="line">custom_channels:</span><br><span class="line"> conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line"> msys2: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line"> bioconda: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line"> menpo: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line"> pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br><span class="line"> simpleitk: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><img src="/../images-pyspark/1.png" alt="1.png"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">在虚拟环境内安装包</span></span><br><span class="line">pip install pyhive pyspark jieba -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>安装完成后结果见下图：</li>
+</ul>
+<p><img src="/../images-pyspark/2.png" alt="2.png"></p>
+<ul>
+<li><p>在本机中还需要<code>安装Hadoop DDL</code>，因为PySpark在运行计算服务过程中会使用到Hadoop中的Mapreduce服务，所以需要在本机中添加补丁：</p>
+</li>
+<li><p>将课程资料中提供的: <code>hadoop-3.3.0 文件</code>, 解压复制到本机,例如：</p>
+</li>
+</ul>
+<p><img src="/../images-pyspark/3.png" alt="3.png"></p>
+<ul>
+<li>并把bin目录下的hadoop.dll复制到<code>C:\Windows\System32\</code>路径下:</li>
+</ul>
+<p><img src="/../images-pyspark/4.png" alt="4.png"></p>
+<ul>
+<li>在本机的环境变量的系统变量设置中<code>配置HADOOP_HOME环境变量</code>指向 hadoop-3.3.0文件夹的路径：</li>
+</ul>
+<p><img src="/../images-pyspark/5.png" alt="5.png"></p>
+<h1 id="7-2在PyCharm中配置本地Python解释器"><a href="#7-2在PyCharm中配置本地Python解释器" class="headerlink" title="7.2在PyCharm中配置本地Python解释器"></a>7.2在PyCharm中配置本地Python解释器</h1><ul>
+<li>首先需要下载<a target="_blank" rel="noopener" href="https://www.jetbrains.com/pycharm/">专业版Pycharm</a>，在PyCharm中的设置中配置Python解析器。</li>
+</ul>
+<p><img src="/../images-pyspark/6.png" alt="6.png"></p>
+<ul>
+<li>配置Linux环境中的Pyspark解释器，这样才能通过本机的Python Spark脚本运行对Linux进行远程运算：</li>
+<li>设置远程SSH python Pyspark环境</li>
+</ul>
+<p><img src="/../images-pyspark/7.png" alt="7.png"></p>
+<ul>
+<li>设置虚拟机中的python环境路径：</li>
+<li>可以先查看Linux中的pyspark中的python路径，方便添加到pycharm的解释器中，以本机的路径为例：  <code>/export/server/anaconda3/envs/pyspark/bin/python3</code></li>
+</ul>
+<p><img src="/../images-pyspark/8.png" alt="8.png"></p>
+<p><img src="/../images-pyspark/9.png" alt="9.png"></p>
+<ul>
+<li><code>将Anaconda中Pyspark路径添加至本机的环境变量</code>，否则在接下来的Pyspark Python代码执行时无法调用Pyspark：</li>
+</ul>
+<p><img src="/../images-pyspark/10.png" alt="10.png"></p>
+<h1 id="7-3导入构建Pyspark-python脚本文件"><a href="#7-3导入构建Pyspark-python脚本文件" class="headerlink" title="7.3导入构建Pyspark python脚本文件"></a>7.3导入构建Pyspark python脚本文件</h1><ul>
+<li>新建名为Pyspark的项目，<code>解释器选择本机的Pyspark python环境</code>，新建HelloWorld.py文件，导入以下代码：</li>
+</ul>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf8</span></span><br><span class="line"><span class="attr">from</span> <span class="string">pyspark import SparkConf, SparkContext</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"># import os</span></span><br><span class="line"><span class="comment"># os.environ[&#x27;PYSPARK_PYTHON&#x27;]=&#x27;D:\\Anaconda\\envs\\pyspark\\python.exe&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">if</span> <span class="string">__name__ == &#x27;__main__&#x27;:</span></span><br><span class="line">    <span class="attr">conf</span> = <span class="string">SparkConf().setAppName(&quot;WordCountHelloWorld&quot;).setMaster(&quot;local[*]&quot;)</span></span><br><span class="line"><span class="comment">    # 通过SparkConf对象构建SparkContext对象</span></span><br><span class="line">    <span class="attr">sc</span> = <span class="string">SparkContext(conf=conf)</span></span><br><span class="line"><span class="comment">    # 需求 : wordcount单词计数, 读取HDFS上的words.txt文件, 对其内部的单词统计出现 的数量</span></span><br><span class="line"><span class="comment">    # 读取文件</span></span><br><span class="line"><span class="comment">    # file_rdd = sc.textFile(&quot;hdfs://node1:8020/input/words.txt&quot;) #hdfs路径</span></span><br><span class="line">    <span class="attr">file_rdd</span> = <span class="string">sc.textFile(&quot;file:///tmp/pycharm_project_360/data/input/words.txt&quot;)</span></span><br><span class="line"><span class="comment">    # file_rdd = sc.textFile(&quot;./data/input/words.txt&quot;)</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    # 将单词进行切割, 得到一个存储全部单词的集合对象</span></span><br><span class="line">    <span class="attr">words_rdd</span> = <span class="string">file_rdd.flatMap(lambda line: line.split(&quot; &quot;))</span></span><br><span class="line"><span class="comment">    # 将单词转换为元组对象, key是单词, value是数字1</span></span><br><span class="line">    <span class="attr">words_with_one_rdd</span> = <span class="string">words_rdd.map(lambda x: (x, 1))</span></span><br><span class="line"><span class="comment">    # 将元组的value 按照key来分组, 对所有的value执行聚合操作(相加)</span></span><br><span class="line">    <span class="attr">result_rdd</span> = <span class="string">words_with_one_rdd.reduceByKey(lambda a, b: a + b)</span></span><br><span class="line"><span class="comment">    # 通过collect方法收集RDD的数据打印输出结果</span></span><br><span class="line">    <span class="attr">print(result_rdd.collect())</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>在本地新建文件word.txt加入一些文本，并添加本地路径至代码中：</li>
+</ul>
+<p><img src="/../images-pyspark/11.png" alt="11.png"></p>
+<ul>
+<li><strong>特别注意的是在本地执行wordcount计数时，pyspark的本机环境需提前配置或者可以在代码中手动引用Pyspark Python环境变量，例如：</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">os.environ[&#x27;PYSPARK_PYTHON&#x27;]=&#x27;D:\\Anaconda\\envs\\pyspark\\python.exe&#x27;</span><br></pre></td></tr></table></figure>
+<h1 id="7-4WordCount代码实例"><a href="#7-4WordCount代码实例" class="headerlink" title="7.4	WordCount代码实例"></a>7.4	WordCount代码实例</h1><ul>
+<li>在本地RDD读取words.txt进行WordCount计数：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#在读取文件代码下只开启：</span><br><span class="line">file_rdd = sc.textFile(&quot;./data/input/words.txt&quot;)</span><br></pre></td></tr></table></figure></li>
+<li>选择本地的Pyspark Python解释器并运行：</li>
+</ul>
+<p><img src="/../images-pyspark/12.png" alt="12.png"></p>
+<ul>
+<li>在本地RDD读取Linux中HDFS上的words.txt进行WordCount计数:</li>
+<li>首先需在HDFS上<code>创建并放置words.txt文件</code>:</li>
+</ul>
+<p><img src="/../images-pyspark/13.png" alt="13.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> #在读取文件代码中设置HDFS上的路径：</span><br><span class="line">file_rdd = sc.textFile(&quot;hdfs://node1:8020/input/words.txt&quot;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>选择本地的Pyspark Python解释器并运行：</li>
+</ul>
+<p><img src="/../images-pyspark/14.png" alt="14.png"></p>
+<ul>
+<li>在Linux中RDD读取Linux中的words.txt进行WordCount计数：</li>
+<li>首先<code>在远程服务器端创建对应的Pycharm项目路径及文件</code>，例如：</li>
+</ul>
+<p><img src="/../images-pyspark/15.png" alt="15.png"></p>
+<blockquote>
+<p><strong>Pycharm中也有功能对远程服务器进行同步文件</strong></p>
+</blockquote>
+<ul>
+<li>在远程端激活Pyspark环境，将HelloWord.py文件中读取文件下的代码<code>只开启读取远程服务器下的路径</code>：</li>
+</ul>
+<p><img src="/../images-pyspark/16.png" alt="16.png"></p>
+<ul>
+<li>在本地切换为远程Pyspark Python解释器，并运行：</li>
+</ul>
+<p><img src="/../images-pyspark/17.png" alt="17.png"></p>
+<ul>
+<li>将代码提交至YARN集群进行测试：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/spark-submit --master yarn --name wordcount /HelloWorld.py</span><br></pre></td></tr></table></figure>
+<img src="/../images-pyspark/18.png" alt="18.png"></li>
+</ul>
+<p><img src="/../images-pyspark/19.png" alt="19.png"></p>
+<p><strong>在运行Pyspark过程中需要注意的问题：</strong></p>
+<blockquote>
+<ol>
+<li>需要对原来的pyspark进行卸载<br>pip uninstall pyspark</li>
+<li>将本机及远程服务器中的Pyspark安装为3.2.0版本;<br>pip install pyspark&#x3D;&#x3D;3.2.0 -i <a target="_blank" rel="noopener" href="https://pypi.tuna.tsinghua.edu.cn/simple">https://pypi.tuna.tsinghua.edu.cn/simple</a></li>
+</ol>
+</blockquote>
+
+                </section>
+
+                
+                
+
+                
+
+            </article>
+
+            
+            <nav class="dis_flex al_post_nav">
+                <a class="al_post_nav_item dis_flex_acenter" href="/">
+                    
+                </a>
+                <a class="al_post_nav_item dis_flex_acenter" href="/2023/06/08/spark-local%20/">
+                    
+                        <span class="al_text_ellipsis al_post_nav_desc">Spark Local环境部署</span>
+                        <svg class="al_arrow">
+                            <use xmlns="http://www.w3.org/2000/svg" xlink:href="/assets/svg_icons.svg#svg-arrow-right"></use>
+                        </svg>
+                    
+                </a>
+            </nav>
+        </div>
+    </div>
+
+
+        <div class="al_index_footer dis_flex_center">
+    <div class="al_index_footer_item al_index_footer_title">
+        John Doe
+    </div>
+
+    
+    
+
+    <div class="al_index_footer_item al_index_footer_extra">
+        Created By 
+        <a target="_blank" rel="noopener" href="https://github.com/iGuan7u/Acetolog">AcetoLog</a>
+         · Power By 
+        <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>
+    </div>
+
+    <div class="al_index_footer_item al_index_footer_extra_right">
+        All Right Reserved
+    </div>
+</div>
+
+        <script type="text/javascript" async="async" src="/javascripts/acelog.js"></script>
+        
+        
+        
+        
+        
+
+    </body>
+</html>
