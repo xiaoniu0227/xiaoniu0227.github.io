@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        
+    
+    <link rel='stylesheet' href="/./css/dracula.css">
+
+        <title>Spark Local环境部署</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2.0">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="manifest" href="/site.webmanifest">
+
+    <meta name="generator" content="Hexo 6.3.0"></head>
+    <body>
+        <header class="al_header al_pos_fixed">
+    <div class="al_header_container dis_flex_jcenter">
+        <div class="al_header_container_left">
+            <div class="al_header_site_title">
+                <a href="/">Hexo</a>
+            </div>
+        </div>
+
+        <div class="dis_flex_jcenter">
+            <div class="al_header_setting">
+                <svg class="al_header_icon">
+                    <use xmlns="http://www.w3.org/2000/svg" xlink:href="/assets/svg_icons.svg#svg-menu"></use>
+                </svg>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="al_sidebar">
+
+    <div class="al_sidebar_overlay al_full_cover"></div>
+
+    <div class="al_pos_fixed al_sidebar_cnt">
+        <div class="dis_flex_acenter al_sidebar_header">
+            <h3>Hexo</h3>
+            <div class="al_sidebar_close al_header_setting">
+                <svg class="al_header_icon">
+                    <use xmlns="http://www.w3.org/2000/svg" xlink:href="/assets/svg_icons.svg#svg-close"></use>
+                </svg>
+            </div>
+        </div>
+
+        <div class="al_sidebar_author_cnt">
+
+            <div class="al_sidebar_author_info">
+                <h4>John Doe</h4>
+                <img class="al_sidebar_avatar" src="https://yourAvatorURL">
+                <p></p>
+            </div>
+
+            
+        </div>
+    </div>
+</div>
+
+        
+    <div class="dis_flex_center al_lightbox_cnt al_full_cover">
+        <img class="al_lightbox_img"/>
+    </div>
+    <div class="al_page_background dis_flex_center al_full_cover"></div>
+    <div class="al_page_container">
+        <div class="al_pos_ab al_fake_background"></div>
+        <div class="al_main_container al_shadow al_main_page_container">
+            <article class="al_article">
+                <header>
+                    <h1 class="al_page_title">
+                        Spark Local环境部署
+                    </h1>
+                    <div class="al_page_info dis_flex">
+                        <div class="al_page_content_info">
+                            Thu June 8, 2023 09:03 PM
+                        </div>
+
+                        
+
+                        
+                        <span class="tags"></span>
+                    </div>
+                </header>
+
+                
+                    <div class="al_page_content_outline">
+                        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Spark-local-%E9%83%A8%E7%BD%B2"><span class="toc-text">Spark(local)部署</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%9B%9E%E9%A1%BE%E8%AE%A4%E8%AF%86Spark-Local"><span class="toc-text">一、回顾认识Spark-Local</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E5%B1%82%E9%9D%A2"><span class="toc-text">资源管理层面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1%E8%AE%A1%E7%AE%97%E5%B1%82%E9%9D%A2"><span class="toc-text">任务计算层面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spark%E6%8F%90%E4%BE%9B%E5%A4%9A%E7%A7%8D%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F"><span class="toc-text">Spark提供多种运行模式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Spark-Local%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-text">二、Spark-Local基本原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Local-%E4%B8%8B%E7%9A%84%E8%A7%92%E8%89%B2%E5%88%86%E5%B8%83"><span class="toc-text">Local 下的角色分布:</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F"><span class="toc-text">注意:</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81Spark-Local%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="toc-text">三、Spark-Local基本配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA%EF%BC%9A"><span class="toc-text">2.集群环境的搭建：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85%E6%90%AD%E5%BB%BA"><span class="toc-text">3.安装搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-Anaconda-On-Linux-%E5%AE%89%E8%A3%85"><span class="toc-text">3. 1 Anaconda On Linux 安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-Spark%E5%AE%89%E8%A3%85"><span class="toc-text">3. 2 Spark安装</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81Spark-Local%E6%B5%8B%E8%AF%95%E8%AE%AD%E7%BB%83"><span class="toc-text">四、Spark-Local测试训练</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E4%B8%80%EF%BC%9Abin-x2F-pyspark"><span class="toc-text">测试一：bin&#x2F;pyspark</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E4%BA%8C%EF%BC%9AWEB-UI-4040"><span class="toc-text">测试二：WEB UI (4040)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E4%B8%89%EF%BC%9Abin-x2F-spark-submit-PI"><span class="toc-text">测试三：bin&#x2F;spark-submit (PI)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94"><span class="toc-text">对比</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81Spark-Local%E6%80%BB%E7%BB%93"><span class="toc-text">五、Spark-Local总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%BC%E4%B8%8A%EF%BC%9A"><span class="toc-text">综上：</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                
+
+                
+                <section id="post-body">
+                    <h1 id="Spark-local-部署"><a href="#Spark-local-部署" class="headerlink" title="Spark(local)部署"></a>Spark(local)部署</h1><h1 id="一、回顾认识Spark-Local"><a href="#一、回顾认识Spark-Local" class="headerlink" title="一、回顾认识Spark-Local"></a>一、回顾认识Spark-Local</h1><p>Spark 是由一个强大而活跃的开源社区开发和维护的，是一个用来实现快速，通用的集群计算平台，适用于各种各样原先需要多种不同的分布式平台的场景，包括批处理，迭代算法，交互式查询，流处理。通过在一个统一的框架下支持这些不同的计算，spark使我们可以简单而低耗地把各种处理流程整合在一起。具备 SQL、统计、预测建模（机器学习）等方面的经验，以及一定的python，matlab，R语言能力的数据科学家对数据进行分析，以回答问题或发现一些潜在规律。</p>
+<p>Spark的架构角色 - 理解<br>YARN主要有4类角色,从2个层面去看:</p>
+<h3 id="资源管理层面"><a href="#资源管理层面" class="headerlink" title="资源管理层面"></a>资源管理层面</h3><p>集群资源管理者(Master):ResourceManager<br>单机资源管理者(Worker):NodeManager </p>
+<h3 id="任务计算层面"><a href="#任务计算层面" class="headerlink" title="任务计算层面"></a>任务计算层面</h3><p>单任务管理者(Master):ApplicationMaster<br>单任务执行者(Worker):Task(容器内计算框架的工作角色)</p>
+<p><img src="/../image-local/1.png"></p>
+<p><img src="/../image-local/2.png"></p>
+<h3 id="Spark提供多种运行模式"><a href="#Spark提供多种运行模式" class="headerlink" title="Spark提供多种运行模式"></a>Spark提供多种运行模式</h3><p>本地模式(单机)<br>Standalone模式(集群)<br>Hadoop YARN模式(集群)<br>Kubernetes模式(容器集群)</p>
+<p>综上我们可以把Spark任务的运行，运行方式可分为三大类。即本地运行，集群运行和云模式，在此节我们聚焦到Spark的本地运行模式。</p>
+<h1 id="二、Spark-Local基本原理"><a href="#二、Spark-Local基本原理" class="headerlink" title="二、Spark-Local基本原理"></a>二、Spark-Local基本原理</h1><p>Spark在本地运行模式一般在开发测试时使用，该模式通过在本地的一个JVM进程中同时运行driver和1个executor进程，实现Spark任务的本地运行。其本质:启动一个JVM Process进程(一个进程里面有多个线程),执行任务Task<br>	Local模式可以限制模拟Spark集群环境的线程数量, 即Local[N] 或 Local[<em>]<br>	其中N代表可以使用N个线程,每个线程拥有一个cpu core。如果不指定N, 则默认是1个线程(该线程有1个core)。 通常Cpu有几个Core,就指定几个线程,最大化利用计算能力。<br>	如果是local[</em>],则代表 Run Spark locally with as many worker threads as logical cores on your machine.按照Cpu最多的Cores设置线程数。</p>
+<p><img src="/../image-local/3.png"></p>
+<p>在Local运行模式中，Driver和Executor运行在同一个节点的同一个JVM中。在Local模式下，只启动了一个Executor。根据不同的Master URL，Executor中可以启动不同的工作线程，用于执行Task。Local模式Driver和Executor关系</p>
+<p><img src="/../image-local/4.png"></p>
+<h3 id="Local-下的角色分布"><a href="#Local-下的角色分布" class="headerlink" title="Local 下的角色分布:"></a>Local 下的角色分布:</h3><p>	资源管理:<br>Master:Local进程本身<br>Worker:Local进程本身<br>	任务执行:<br>Driver:Local进程本身<br>Executor:不存在,没有独立的Executor角色, 由Local进程(也就是Driver)内的线程提供计算能力<br>PS: Driver也算一种特殊的Executor, 只不过多数时候, 我们将Executor当做纯Worker对待, 这样和Driver好区分(一类是管理 一类是工人) </p>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意:"></a>注意:</h4><p>Local模式只能运行一个Spark程序, 如果执行多个Spark程序, 那就是由多个相互独立的Local进程在执行</p>
+<p><img src="/../image-local/5..png"></p>
+<h1 id="三、Spark-Local基本配置"><a href="#三、Spark-Local基本配置" class="headerlink" title="三、Spark-Local基本配置"></a>三、Spark-Local基本配置</h1><p>###1. 课程服务器环境：<br>使用三台Linux虚拟机服务器来学习, 三台虚拟机的功能分配是:<br>node1: Master(HDFS\YARN\Spark) 和 Worker(HDFS\ YARN\ Spark)<br>node2: Worker(HDFS\ YARN\ Spark)<br>node3: Worker(HDFS\ YARN\ Spark) 和 Hive</p>
+<h3 id="2-集群环境的搭建："><a href="#2-集群环境的搭建：" class="headerlink" title="2.集群环境的搭建："></a>2.集群环境的搭建：</h3><p>PYTHON 推荐3.8<br>JDK 1.8<br>操作系统CentOS 7<br>已部署好Hadoop集群(HDFS\YARN) </p>
+<p><img src="/../image-local/6.png"></p>
+<p><img src="/../image-local/7.png"></p>
+<h3 id="3-安装搭建"><a href="#3-安装搭建" class="headerlink" title="3.安装搭建"></a>3.安装搭建</h3><p>本实践的Python环境需要安装到Linux(虚拟机)和Windows(本机)上</p>
+<h5 id="3-1-Anaconda-On-Linux-安装"><a href="#3-1-Anaconda-On-Linux-安装" class="headerlink" title="3. 1 Anaconda On Linux 安装"></a>3. 1 Anaconda On Linux 安装</h5><p>安装上传安装包: 上传: 资料中提供的Anaconda3-2021.05-Linux-x86_64.sh文件到Linux服务器上安装:<br>sh .&#x2F;Anaconda3-2021.05-Linux-x86_64.sh</p>
+<p><img src="/../image-local/8.png"></p>
+<p>安装完成后, 退出终端， 重新进来，看到这个Base开头表明安装好了（base是默认的虚拟环境）。</p>
+<h5 id="3-2-Spark安装"><a href="#3-2-Spark安装" class="headerlink" title="3. 2 Spark安装"></a>3. 2 Spark安装</h5><p>（1）解压下载的Spark安装包<br>tar -zxvf spark-3.2.0-bin-hadoop3.2.tgz -C &#x2F;export&#x2F;server&#x2F;</p>
+<p><img src="/../image-local/9.png"></p>
+<p>（2）由于spark目录名称很⻓, 给其一个软链接:<br>ln -s &#x2F;export&#x2F;server&#x2F;spark-3.2.0-bin-hadoop3.2 &#x2F;export&#x2F;server&#x2F;spark</p>
+<p><img src="/../image-local/10.png"></p>
+<p>（3）环境变量<br>配置Spark由如下5个环境变量需要设置<br>	SPARK_HOME: 表示Spark安装路径在哪里<br>	PYSPARK_PYTHON: 表示Spark想运行Python程序, 那么去哪里找python执行器<br>	JAVA_HOME: 告知Spark Java在哪里<br>	HADOOP_CONF_DIR: 告知Spark Hadoop的配置文件在哪里<br>	HADOOP_HOME: 告知Spark  Hadoop安装在哪里</p>
+<p><img src="/../image-local/11.png"></p>
+<h1 id="四、Spark-Local测试训练"><a href="#四、Spark-Local测试训练" class="headerlink" title="四、Spark-Local测试训练"></a>四、Spark-Local测试训练</h1><h2 id="测试一：bin-x2F-pyspark"><a href="#测试一：bin-x2F-pyspark" class="headerlink" title="测试一：bin&#x2F;pyspark"></a>测试一：bin&#x2F;pyspark</h2><p>bin&#x2F;pyspark<br>bin&#x2F;pyspark 程序, 可以提供一个  交互式的 Python解释器环境, 在这里面可以写普通python代码, 以及spark代码</p>
+<p><img src="/../image-local/12.png"></p>
+<p>在这个环境内, 可以运行spark代码<br>图中的: parallelize 和 map 都是spark提供的API<br>sc.parallelize([1,2,3,4,5]).map(lambda x: x + 1).collect() </p>
+<p><img src="/../image-local/13.png"></p>
+<h2 id="测试二：WEB-UI-4040"><a href="#测试二：WEB-UI-4040" class="headerlink" title="测试二：WEB UI (4040)"></a>测试二：WEB UI (4040)</h2><p>（1）Spark程序在运行的时候, 会绑定到机器的4040端口上.<br>如果4040端口被占用, 会顺延到4041 … 4042…</p>
+<p><img src="/../image-local/14.png"></p>
+<p>（2）4040端口是一个WEBUI端口, 可以在浏览器内打开:</p>
+<p><img src="/../image-local/15.png"></p>
+<p>（3）打开监控页面后, 可以发现 在程序内仅有一个Driver<br>因为我们是Local模式, Driver即管理 又 干活.<br>同时, 输入jps</p>
+<p><img src="/../image-local/16.png"></p>
+<p>可以看到local模式下的唯一进程存在，这个进程 即是master也是worker</p>
+<h2 id="测试三：bin-x2F-spark-submit-PI"><a href="#测试三：bin-x2F-spark-submit-PI" class="headerlink" title="测试三：bin&#x2F;spark-submit (PI)"></a>测试三：bin&#x2F;spark-submit (PI)</h2><p>作用: 提交指定的Spark代码到Spark环境中运行这个仅作为了解即可, 因为这个是用于scala语言的解释器环境<br>bin&#x2F;spark-submit (PI)<br>作用: 提交指定的Spark代码到Spark环境中运行<br>使用方法:<br>语法：bin&#x2F;spark-submit [可选的一些选项] jar包或者python代码的路径 [代码的参数]<br>示例：bin&#x2F;spark-submit &#x2F;export&#x2F;server&#x2F;spark&#x2F;examples&#x2F;src&#x2F;main&#x2F;python&#x2F;pi.py 10<br>此案例 运行Spark官方所提供的示例代码 来计算圆周率值.  后面的10 是主函数接受的参数, 数字越高, 计算圆周率越准确.</p>
+<p><img src="/../image-local/17.png"></p>
+<h2 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h2><p><img src="/../image-local/18.png"></p>
+<p>了解：bin&#x2F;spark-shell<br>同样是一个解释器环境, 和bin&#x2F;pyspark不同的是, 这个解释器环境 运行的不是python代码, 而是scala程序代码</p>
+<p><img src="/../image-local/19.png"></p>
+<p>如上图，在不是合适的地方无法识别语法准确，这个仅作为了解即可, 因为这个是用于scala语言的解释器环境</p>
+<h1 id="五、Spark-Local总结"><a href="#五、Spark-Local总结" class="headerlink" title="五、Spark-Local总结"></a>五、Spark-Local总结</h1><p>Local模式就是以一个独立进程配合其内部线程来提供完成Spark运行时环境Local模式可以通过spark-shell&#x2F;pyspark&#x2F;spark-submit等来开启。是一个交互式的解释器执行环境环境启动后就得到了一个LocalSpark环境可以运行Python代码去进行Spark计算，类似Python自带解释器。</p>
+<p>Spark的任务在运行后，会在Driver所在机器绑定到4040端口提供当前任务的监控页面供查看。</p>
+<h3 id="综上："><a href="#综上：" class="headerlink" title="综上："></a>综上：</h3><p>Spark local模式被称为Local模式，是用单机的多个线程来模拟Spark分布式计算，通常用来验证开发出来的应用程序逻辑上有没有问题，运行该模式使用简单，速度快、通用性强，只需要把Spark的安装包解压后，改一些常用的配置即可使用，而不用启动Spark的Master、Worker守护进程，也不用启动Hadoop的各服务，这是和其他模式的区别哦，要记住才能理解。</p>
+
+                </section>
+
+                
+                
+
+                
+
+            </article>
+
+            
+            <nav class="dis_flex al_post_nav">
+                <a class="al_post_nav_item dis_flex_acenter" href="/2023/06/09/Spark(Pyspark%E5%9F%BA%E7%A1%80%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83%EF%BC%89/">
+                    
+                        <svg class="al_arrow">
+                            <use xmlns="http://www.w3.org/2000/svg" xlink:href="/assets/svg_icons.svg#svg-arrow-left"></use>
+                        </svg>
+                        <span class="al_text_ellipsis al_post_nav_desc">7.Spark(Pyspark基础编译环境）</span>
+                    
+                </a>
+                <a class="al_post_nav_item dis_flex_acenter" href="/2023/06/07/Git%E6%95%99%E7%A8%8B/">
+                    
+                        <span class="al_text_ellipsis al_post_nav_desc">Git环境部署</span>
+                        <svg class="al_arrow">
+                            <use xmlns="http://www.w3.org/2000/svg" xlink:href="/assets/svg_icons.svg#svg-arrow-right"></use>
+                        </svg>
+                    
+                </a>
+            </nav>
+        </div>
+    </div>
+
+
+        <div class="al_index_footer dis_flex_center">
+    <div class="al_index_footer_item al_index_footer_title">
+        John Doe
+    </div>
+
+    
+    
+
+    <div class="al_index_footer_item al_index_footer_extra">
+        Created By 
+        <a target="_blank" rel="noopener" href="https://github.com/iGuan7u/Acetolog">AcetoLog</a>
+         · Power By 
+        <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>
+    </div>
+
+    <div class="al_index_footer_item al_index_footer_extra_right">
+        All Right Reserved
+    </div>
+</div>
+
+        <script type="text/javascript" async="async" src="/javascripts/acelog.js"></script>
+        
+        
+        
+        
+        
+
+    </body>
+</html>
