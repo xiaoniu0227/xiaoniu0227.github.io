@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        
+    
+    <link rel='stylesheet' href="/./css/dracula.css">
+
+        <title>Sqoop配置文档</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2.0">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="manifest" href="/site.webmanifest">
+
+    <meta name="generator" content="Hexo 6.3.0"></head>
+    <body>
+        <header class="al_header al_pos_fixed">
+    <div class="al_header_container dis_flex_jcenter">
+        <div class="al_header_container_left">
+            <div class="al_header_site_title">
+                <a href="/">Hexo</a>
+            </div>
+        </div>
+
+        <div class="dis_flex_jcenter">
+            <div class="al_header_setting">
+                <svg class="al_header_icon">
+                    <use xmlns="http://www.w3.org/2000/svg" xlink:href="/assets/svg_icons.svg#svg-menu"></use>
+                </svg>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="al_sidebar">
+
+    <div class="al_sidebar_overlay al_full_cover"></div>
+
+    <div class="al_pos_fixed al_sidebar_cnt">
+        <div class="dis_flex_acenter al_sidebar_header">
+            <h3>Hexo</h3>
+            <div class="al_sidebar_close al_header_setting">
+                <svg class="al_header_icon">
+                    <use xmlns="http://www.w3.org/2000/svg" xlink:href="/assets/svg_icons.svg#svg-close"></use>
+                </svg>
+            </div>
+        </div>
+
+        <div class="al_sidebar_author_cnt">
+
+            <div class="al_sidebar_author_info">
+                <h4>John Doe</h4>
+                <img class="al_sidebar_avatar" src="https://yourAvatorURL">
+                <p></p>
+            </div>
+
+            
+        </div>
+    </div>
+</div>
+
+        
+    <div class="dis_flex_center al_lightbox_cnt al_full_cover">
+        <img class="al_lightbox_img"/>
+    </div>
+    <div class="al_page_background dis_flex_center al_full_cover"></div>
+    <div class="al_page_container">
+        <div class="al_pos_ab al_fake_background"></div>
+        <div class="al_main_container al_shadow al_main_page_container">
+            <article class="al_article">
+                <header>
+                    <h1 class="al_page_title">
+                        Sqoop配置文档
+                    </h1>
+                    <div class="al_page_info dis_flex">
+                        <div class="al_page_content_info">
+                            Sun June 18, 2023 09:09 AM
+                        </div>
+
+                        
+
+                        
+                        <span class="tags"></span>
+                    </div>
+                </header>
+
+                
+                    <div class="al_page_content_outline">
+                        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Sqoop%E9%85%8D%E7%BD%AE"><span class="toc-text">Sqoop配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9"><span class="toc-text">配置文件修改</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sqoop%E5%AF%BC%E5%85%A5"><span class="toc-text">Sqoop导入</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%A8%E9%87%8F%E5%AF%BC%E5%85%A5mysql%E8%A1%A8%E6%95%B0%E6%8D%AE%E5%88%B0HDFS"><span class="toc-text">全量导入mysql表数据到HDFS</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%A8%E9%87%8F%E5%AF%BC%E5%85%A5mysql%E8%A1%A8%E6%95%B0%E6%8D%AE%E5%88%B0HIVE"><span class="toc-text">全量导入mysql表数据到HIVE</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80%EF%BC%9A%E5%85%88%E5%A4%8D%E5%88%B6%E8%A1%A8%E7%BB%93%E6%9E%84%E5%88%B0hive%E4%B8%AD%E5%86%8D%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="toc-text">方式一：先复制表结构到hive中再导入数据</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9A%E7%9B%B4%E6%8E%A5%E5%A4%8D%E5%88%B6%E8%A1%A8%E7%BB%93%E6%9E%84%E6%95%B0%E6%8D%AE%E5%88%B0hive%E4%B8%AD"><span class="toc-text">方式二：直接复制表结构数据到hive中</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E8%A1%A8%E6%95%B0%E6%8D%AE%E5%AD%90%E9%9B%86-where%E8%BF%87%E6%BB%A4"><span class="toc-text">导入表数据子集(where过滤)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E8%A1%A8%E6%95%B0%E6%8D%AE%E5%AD%90%E9%9B%86-query%E6%9F%A5%E8%AF%A2"><span class="toc-text">导入表数据子集(query查询)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Append%E6%A8%A1%E5%BC%8F%E5%A2%9E%E9%87%8F%E5%AF%BC%E5%85%A5"><span class="toc-text">Append模式增量导入</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Lastmodified%E6%A8%A1%E5%BC%8F%E5%A2%9E%E9%87%8F%E5%AF%BC%E5%85%A5"><span class="toc-text">Lastmodified模式增量导入</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Lastmodified%E6%A8%A1%E5%BC%8F-append%E3%80%81merge-key"><span class="toc-text">Lastmodified模式:append、merge-key</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sqoop%E5%AF%BC%E5%87%BA"><span class="toc-text">Sqoop导出</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E6%A8%A1%E5%BC%8F%E5%AF%BC%E5%87%BAHDFS%E6%95%B0%E6%8D%AE%E5%88%B0mysql"><span class="toc-text">默认模式导出HDFS数据到mysql</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%87%86%E5%A4%87HDFS%E6%95%B0%E6%8D%AE"><span class="toc-text">准备HDFS数据</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%89%8B%E5%8A%A8%E5%88%9B%E5%BB%BAmysql%E4%B8%AD%E7%9A%84%E7%9B%AE%E6%A0%87%E8%A1%A8"><span class="toc-text">手动创建mysql中的目标表</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E5%AF%BC%E5%87%BA%E5%91%BD%E4%BB%A4"><span class="toc-text">执行导出命令</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E5%AF%BC%E5%87%BA%EF%BC%88updateonly%E6%A8%A1%E5%BC%8F%EF%BC%89"><span class="toc-text">更新导出（updateonly模式）</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%87%86%E5%A4%87HDFS%E6%95%B0%E6%8D%AE-1"><span class="toc-text">准备HDFS数据</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%89%8B%E5%8A%A8%E5%88%9B%E5%BB%BAmysql%E4%B8%AD%E7%9A%84%E7%9B%AE%E6%A0%87%E8%A1%A8-1"><span class="toc-text">手动创建mysql中的目标表</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%85%88%E6%89%A7%E8%A1%8C%E5%85%A8%E9%83%A8%E5%AF%BC%E5%87%BA%E6%93%8D%E4%BD%9C"><span class="toc-text">先执行全部导出操作</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%96%B0%E5%A2%9E%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6"><span class="toc-text">新增一个文件</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E6%9B%B4%E6%96%B0%E5%AF%BC%E5%87%BA"><span class="toc-text">执行更新导出</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E5%AF%BC%E5%87%BA%EF%BC%88allowinsert%E6%A8%A1%E5%BC%8F%EF%BC%89"><span class="toc-text">更新导出（allowinsert模式）</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%87%86%E5%A4%87HDFS%E6%95%B0%E6%8D%AE-2"><span class="toc-text">准备HDFS数据</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%89%8B%E5%8A%A8%E5%88%9B%E5%BB%BAmysql%E4%B8%AD%E7%9A%84%E7%9B%AE%E6%A0%87%E8%A1%A8-2"><span class="toc-text">手动创建mysql中的目标表</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%85%88%E6%89%A7%E8%A1%8C%E5%85%A8%E9%83%A8%E5%AF%BC%E5%87%BA%E6%93%8D%E4%BD%9C-1"><span class="toc-text">先执行全部导出操作</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%96%B0%E5%A2%9E%E6%96%87%E4%BB%B6"><span class="toc-text">新增文件</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E6%9B%B4%E6%96%B0%E5%AF%BC%E5%87%BA-1"><span class="toc-text">执行更新导出</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sqoop-job%E4%BD%9C%E4%B8%9A%E4%BB%8B%E7%BB%8D"><span class="toc-text">sqoop job作业介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#job%E8%AF%AD%E6%B3%95"><span class="toc-text">job语法</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAjob-%E2%80%93create"><span class="toc-text">创建job(–create)</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81job-%E2%80%93list"><span class="toc-text">验证job (–list)</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5job-%E2%80%93show"><span class="toc-text">检查job(–show)</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%89%A7%E8%A1%8Cjob-%E2%80%93exec"><span class="toc-text">执行job (–exec)</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#job%E7%9A%84%E5%85%8D%E5%AF%86%E8%BE%93%E5%85%A5"><span class="toc-text">job的免密输入</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol>
+                    </div>
+                
+
+                
+                <section id="post-body">
+                    <h1 id="Sqoop配置"><a href="#Sqoop配置" class="headerlink" title="Sqoop配置"></a>Sqoop配置</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>前提</p>
+<p>安装sqoop的前提是已经具备java、mysql、hadoop和hive环境。</p>
+<h5 id="配置文件修改"><a href="#配置文件修改" class="headerlink" title="配置文件修改"></a>配置文件修改</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile，将以下内容添加进去</span><br><span class="line"></span><br><span class="line">#SQOOP_HOME</span><br><span class="line">export SQOOP_HOME=/export/server/sqoop</span><br><span class="line">export PATH=$PATH:$SQOOP_HOME/bin</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/1.jpg" alt="图 1">  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">进入到$SQOOP_HOME/conf</span><br><span class="line">将sqoop-env-template.sh修改成sqoop-env.sh</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/2.jpg" alt="图 2"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">编辑sqoop-env.sh文件，添加以下内容</span><br><span class="line">export HADOOP_COMMON_HOME= /export/server/hadoop</span><br><span class="line">export HADOOP_MAPRED_HOME= /export/server/hadoop</span><br><span class="line">export HIVE_HOME= /export/server/hive</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/3.jpg" alt="图 3"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">加入mysql的jdbc驱动包</span><br><span class="line">cp /export/server/hive/lib/mysql-connector-java-5.1.32.jar $SQOOP_HOME/lib/</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/4.jpg" alt="图 4"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">验证启动</span><br><span class="line">bin/sqoop list-databases \</span><br><span class="line"> --connect jdbc:mysql://node1:3306/ \</span><br><span class="line"> --username root --password hadoop</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/5.jpg" alt="图 5"></p>
+<h2 id="Sqoop导入"><a href="#Sqoop导入" class="headerlink" title="Sqoop导入"></a>Sqoop导入</h2><p><strong>Sqoop测试表数据</strong><br>在mysql中创建数据库userdb<code>，然后执行参考资料中的sql脚本： 创建三张表: emp雇员表emp_add</code>雇员地址表emp_conn雇员联系表。<br><img src="/../image_sqoop/6.jpg" alt="图 6"></p>
+<h5 id="全量导入mysql表数据到HDFS"><a href="#全量导入mysql表数据到HDFS" class="headerlink" title="全量导入mysql表数据到HDFS"></a>全量导入mysql表数据到HDFS</h5><p>下面的命令用于从MySQL数据库服务器中的emp表导入HDFS。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#example1-mysql-hdfs-start</span><br><span class="line">bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://node1:3306/userdb \</span><br><span class="line">--username root \</span><br><span class="line">--password hadoop \</span><br><span class="line">--delete-target-dir \</span><br><span class="line">--target-dir /sqoop/sqoopresult \</span><br><span class="line">--table emp --m 1</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/7.jpg" alt="图 7"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#example2-mysql-hdfs-terminated</span><br><span class="line">bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://node1:3306/userdb \</span><br><span class="line">--username root \</span><br><span class="line">--password hadoop \</span><br><span class="line">--target-dir /sqoop/sqoopresult2 \</span><br><span class="line">--fields-terminated-by &#x27;\t&#x27; \</span><br><span class="line">--table emp --m 1</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/8.jpg" alt="图 8"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#example3-mysql-hdfs-split</span><br><span class="line">bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://node1:3306/userdb \</span><br><span class="line">--username root \</span><br><span class="line">--password hadoop \</span><br><span class="line">--target-dir /sqoop/sqoopresult3 \</span><br><span class="line">--fields-terminated-by &#x27;\t&#x27; \</span><br><span class="line">--split-by id \</span><br><span class="line">--table emp --m 2</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/9.jpg" alt="图 9"></p>
+<h5 id="全量导入mysql表数据到HIVE"><a href="#全量导入mysql表数据到HIVE" class="headerlink" title="全量导入mysql表数据到HIVE"></a>全量导入mysql表数据到HIVE</h5><h6 id="方式一：先复制表结构到hive中再导入数据"><a href="#方式一：先复制表结构到hive中再导入数据" class="headerlink" title="方式一：先复制表结构到hive中再导入数据"></a>方式一：先复制表结构到hive中再导入数据</h6><p>在hive中新建数据库sqoop_test用于测试</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create database if not exists sqoop_test comment &quot;this is sqoop db&quot; with dbproperties(&#x27;createdBy&#x27;=&#x27;yzl&#x27;);</span><br><span class="line"></span><br><span class="line">use sqoop_test;</span><br><span class="line"></span><br><span class="line">show tables;</span><br><span class="line"></span><br><span class="line">desc formatted emp_add_sp;</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/10.jpg" alt="图 10"><br><img src="/../image_sqoop/11.jpg" alt="图 11"><br>将关系型数据的表结构复制到hive中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#example4-1-mysql-hive-structure</span><br><span class="line">bin/sqoop create-hive-table \</span><br><span class="line">--connect jdbc:mysql://node1:3306/userdb \</span><br><span class="line">--table emp_add \</span><br><span class="line">--username root \</span><br><span class="line">--password hadoop \</span><br><span class="line">--hive-table sqoop_test.emp_add_sp</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/12.jpg" alt="图 12"></p>
+<p>从关系数据库导入文件到hive中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#example4-2-mysql-hive-data</span><br><span class="line">bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://node1:3306/userdb \</span><br><span class="line">--username root \</span><br><span class="line">--password hadoop \</span><br><span class="line">--table emp_add \</span><br><span class="line">--hive-table sqoop_test.emp_add_sp \</span><br><span class="line">--hive-import \</span><br><span class="line">--m 1</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/13.jpg" alt="图 13"></p>
+<h6 id="方式二：直接复制表结构数据到hive中"><a href="#方式二：直接复制表结构数据到hive中" class="headerlink" title="方式二：直接复制表结构数据到hive中"></a>方式二：直接复制表结构数据到hive中</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#example5-mysql-hive</span><br><span class="line">bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://node1:3306/userdb \</span><br><span class="line">--username root \</span><br><span class="line">--password hadoop \</span><br><span class="line">--table emp_conn \</span><br><span class="line">--hive-import \</span><br><span class="line">--m 1 \</span><br><span class="line">--hive-database sqoop_test;</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/14.jpg" alt="图 14"><br><img src="/../image_sqoop/15.jpg" alt="图 15"></p>
+<h5 id="导入表数据子集-where过滤"><a href="#导入表数据子集-where过滤" class="headerlink" title="导入表数据子集(where过滤)"></a>导入表数据子集(where过滤)</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#example6-mysql-hdfs-where</span><br><span class="line">bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://node1:3306/userdb \</span><br><span class="line">--username root \</span><br><span class="line">--password hadoop \</span><br><span class="line">--where &quot;city =&#x27;sec-bad&#x27;&quot; \</span><br><span class="line">--target-dir /sqoop/wherequery \</span><br><span class="line">--table emp_add --m 1</span><br></pre></td></tr></table></figure>
+<h5 id="导入表数据子集-query查询"><a href="#导入表数据子集-query查询" class="headerlink" title="导入表数据子集(query查询)"></a>导入表数据子集(query查询)</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#example7-mysql-hdfs-query</span><br><span class="line">bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://node1:3306/userdb \</span><br><span class="line">--username root \</span><br><span class="line">--password hadoop \</span><br><span class="line">--target-dir /sqoop/wherequery2 \</span><br><span class="line">--query &#x27;select id,name,deg from emp WHERE  id&gt;1203 and $CONDITIONS&#x27; \</span><br><span class="line">--split-by id \</span><br><span class="line">--fields-terminated-by &#x27;\001&#x27; \</span><br><span class="line">--m 2</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/16.jpg" alt="图 16"></p>
+<h5 id="Append模式增量导入"><a href="#Append模式增量导入" class="headerlink" title="Append模式增量导入"></a>Append模式增量导入</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#example8-1-mysql-hdfs-append</span><br><span class="line">bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://node1:3306/userdb \</span><br><span class="line">--username root \</span><br><span class="line">--password hadoop \</span><br><span class="line">--target-dir /sqoop/appendresult \</span><br><span class="line">--table emp --m 1</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/17.jpg" alt="图 17"></p>
+<p>使用hdfs dfs -cat查看生成的数据文件，发现数据已经导入到hdfs中</p>
+<p>然后在mysql的emp表中插入2条数据:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">insert into `userdb`.`emp` (`id`, `name`, `deg`, `salary`, `dept`) values (&#x27;1206&#x27;, &#x27;allen&#x27;, &#x27;admin&#x27;, &#x27;30000&#x27;, &#x27;tp&#x27;);</span><br><span class="line">insert into `userdb`.`emp` (`id`, `name`, `deg`, `salary`, `dept`) values (&#x27;1207&#x27;, &#x27;woon&#x27;, &#x27;admin&#x27;, &#x27;40000&#x27;, &#x27;tp&#x27;);</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/18.jpg" alt="图 18"><br>执行如下的指令，实现增量的导入:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#example8-2-mysql-hdfs-append</span><br><span class="line">bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://node1:3306/userdb \</span><br><span class="line">--username root \</span><br><span class="line">--password hadoop \</span><br><span class="line">--table emp --m 1 \</span><br><span class="line">--target-dir /sqoop/appendresult \</span><br><span class="line">--incremental append \</span><br><span class="line">--check-column id \</span><br><span class="line">--last-value 1205</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/19.jpg" alt="图 19"></p>
+<h6 id="Lastmodified模式增量导入"><a href="#Lastmodified模式增量导入" class="headerlink" title="Lastmodified模式增量导入"></a>Lastmodified模式增量导入</h6><p>首先创建一个customer表，指定一个时间戳字段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create table customertest(id int,name varchar(20),last_mod timestamp default current_timestamp on update current_timestamp);</span><br></pre></td></tr></table></figure>
+<p>插入如下记录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">insert into customertest(id,name) values(1,&#x27;neil&#x27;);</span><br><span class="line">insert into customertest(id,name) values(2,&#x27;jack&#x27;);</span><br><span class="line">insert into customertest(id,name) values(3,&#x27;martin&#x27;);</span><br><span class="line">insert into customertest(id,name) values(4,&#x27;tony&#x27;);</span><br><span class="line">insert into customertest(id,name) values(5,&#x27;eric&#x27;);</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/20.jpg" alt="图 20"><br>此时执行sqoop指令将数据导入hdfs</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#example9-1-mysql-hdfs-Lastmodified</span><br><span class="line">bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://node1:3306/userdb \</span><br><span class="line">--username root \</span><br><span class="line">--password hadoop \</span><br><span class="line">--target-dir /sqoop/lastmodifiedresult \</span><br><span class="line">--table customertest --m 1</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/21.jpg" alt="图 21"><br><img src="/../image_sqoop/22.jpg" alt="图 22"><br>再次插入一条数据进入customertest表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into customertest(id,name) values(6,&#x27;james&#x27;)</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/23.jpg" alt="图 23"><br>使用incremental的方式进行增量的导入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#example9-2-mysql-hdfs-Lastmodified</span><br><span class="line">bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://node1:3306/userdb \</span><br><span class="line">--username root \</span><br><span class="line">--password hadoop \</span><br><span class="line">--table customertest \</span><br><span class="line">--target-dir /sqoop/lastmodifiedresult \</span><br><span class="line">--check-column last_mod \</span><br><span class="line">--incremental lastmodified \</span><br><span class="line">--last-value &quot;2019-05-28 18:42:06&quot; \</span><br><span class="line">--m 1 \</span><br><span class="line">--append</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/24.jpg" alt="图 24"><br><img src="/../image_sqoop/25.jpg" alt="图 25"></p>
+<h6 id="Lastmodified模式-append、merge-key"><a href="#Lastmodified模式-append、merge-key" class="headerlink" title="Lastmodified模式:append、merge-key"></a>Lastmodified模式:append、merge-key</h6><p>我们去更新 id为1的name字段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update customertest set name = &#x27;Neil&#x27; where id = 1;</span><br></pre></td></tr></table></figure>
+<p>执行如下指令，把id字段作为merge-key</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#example10-mysql-hdfs-merge-key</span><br><span class="line">bin/sqoop import \</span><br><span class="line">--connect jdbc:mysql://node1:3306/userdb \</span><br><span class="line">--username root \</span><br><span class="line">--password hadoop \</span><br><span class="line">--table customertest \</span><br><span class="line">--target-dir /sqoop/lastmodifiedresult \</span><br><span class="line">--check-column last_mod \</span><br><span class="line">--incremental lastmodified \</span><br><span class="line">--last-value &quot;2019-05-28 18:42:06&quot; \</span><br><span class="line">--m 1 \</span><br><span class="line">--merge-key id</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/26.jpg" alt="图 26"></p>
+<h2 id="Sqoop导出"><a href="#Sqoop导出" class="headerlink" title="Sqoop导出"></a>Sqoop导出</h2><h5 id="默认模式导出HDFS数据到mysql"><a href="#默认模式导出HDFS数据到mysql" class="headerlink" title="默认模式导出HDFS数据到mysql"></a>默认模式导出HDFS数据到mysql</h5><h6 id="准备HDFS数据"><a href="#准备HDFS数据" class="headerlink" title="准备HDFS数据"></a>准备HDFS数据</h6><p>在HDFS文件系统中“&#x2F;emp&#x2F;”目录的下创建一个文件emp_data.txt</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir /export/data/sqoop-data/emp/</span><br><span class="line"></span><br><span class="line">vim emp_data.txt</span><br><span class="line"></span><br><span class="line">1201,gopal,manager,50000,TP</span><br><span class="line">1202,manisha,preader,50000,TP</span><br><span class="line">1203,kalil,php dev,30000,AC</span><br><span class="line">1204,prasanth,php dev,30000,AC</span><br><span class="line">1205,kranthi,admin,20000,TP</span><br><span class="line">1206,satishp,grpdes,20000,GR</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/27.jpg" alt="图 27"><br><img src="/../image_sqoop/28.jpg" alt="图 28"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#上传至hdfs</span><br><span class="line">hadoop fs -mkdir /sqoop/emp_data</span><br><span class="line">hadoop fs -put emp_data.txt /sqoop/emp_data </span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/29.jpg" alt="图 29"></p>
+<h6 id="手动创建mysql中的目标表"><a href="#手动创建mysql中的目标表" class="headerlink" title="手动创建mysql中的目标表"></a>手动创建mysql中的目标表</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; use userdb;</span><br><span class="line">mysql&gt; create table employee ( </span><br><span class="line">   id int not null primary key, </span><br><span class="line">   name varchar(20), </span><br><span class="line">   deg varchar(20),</span><br><span class="line">   salary int,</span><br><span class="line">   dept varchar(10));</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/30.jpg" alt="图 30"></p>
+<h6 id="执行导出命令"><a href="#执行导出命令" class="headerlink" title="执行导出命令"></a>执行导出命令</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#example10-hdfs-mysql-export</span><br><span class="line">bin/sqoop export \</span><br><span class="line">--connect jdbc:mysql://node1:3306/userdb \</span><br><span class="line">--username root \</span><br><span class="line">--password hadoop \</span><br><span class="line">--table employee1 \</span><br><span class="line">--columns id,name,deg,salary,dept \</span><br><span class="line">--export-dir /sqoop/emp_data/</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/31.jpg" alt="图 31"></p>
+<h5 id="更新导出（updateonly模式）"><a href="#更新导出（updateonly模式）" class="headerlink" title="更新导出（updateonly模式）"></a>更新导出（updateonly模式）</h5><h6 id="准备HDFS数据-1"><a href="#准备HDFS数据-1" class="headerlink" title="准备HDFS数据"></a>准备HDFS数据</h6><p>在HDFS文件系统中&#x2F;sqoop&#x2F;updateonly_1&#x2F;目录的下创建一个文件updateonly_1.txt</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1201,gopal,manager,50000</span><br><span class="line">1202,manisha,preader,50000</span><br><span class="line">1203,kalil,php dev,30000</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/32.jpg" alt="图 32"></p>
+<h6 id="手动创建mysql中的目标表-1"><a href="#手动创建mysql中的目标表-1" class="headerlink" title="手动创建mysql中的目标表"></a>手动创建mysql中的目标表</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; USE userdb;</span><br><span class="line">mysql&gt; CREATE TABLE updateonly ( </span><br><span class="line">   id INT NOT NULL PRIMARY KEY, </span><br><span class="line">   name VARCHAR(20), </span><br><span class="line">   deg VARCHAR(20),</span><br><span class="line">   salary INT);</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/33.jpg" alt="图 33"></p>
+<h6 id="先执行全部导出操作"><a href="#先执行全部导出操作" class="headerlink" title="先执行全部导出操作"></a>先执行全部导出操作</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#example11-1-hdfs-mysql-export-updateonly</span><br><span class="line">bin/sqoop export \</span><br><span class="line">--connect jdbc:mysql://node1:3306/userdb \</span><br><span class="line">--username root \</span><br><span class="line">--password hadoop \</span><br><span class="line">--table updateonly \</span><br><span class="line">--export-dir /sqoop/updateonly_1/</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/34.jpg" alt="图 34"></p>
+<h6 id="新增一个文件"><a href="#新增一个文件" class="headerlink" title="新增一个文件"></a>新增一个文件</h6><p>新增一个文件updateonly_2.txt：<strong>修改了前三条数据并且新增了一条记录</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1201,gopal,manager,1212</span><br><span class="line">1202,manisha,preader,1313</span><br><span class="line">1203,kalil,php dev,1414</span><br><span class="line">1204,allen,java,1515</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -mkdir /sqoop/updateonly_2</span><br><span class="line">hadoop fs -put updateonly_2.txt /sqoop/updateonly_2</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/35.jpg" alt="图 35"></p>
+<h6 id="执行更新导出"><a href="#执行更新导出" class="headerlink" title="执行更新导出"></a>执行更新导出</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#example11-2-hdfs-mysql-export-updateonly</span><br><span class="line">bin/sqoop export \</span><br><span class="line">--connect jdbc:mysql://node1:3306/userdb \</span><br><span class="line">--username root \</span><br><span class="line">--password hadoop \</span><br><span class="line">--table updateonly \</span><br><span class="line">--export-dir /sqoop/updateonly_2 \</span><br><span class="line">--update-key id \</span><br><span class="line">--update-mode updateonly</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/37.jpg" alt="图 37"></p>
+<h2 id="更新导出（allowinsert模式）"><a href="#更新导出（allowinsert模式）" class="headerlink" title="更新导出（allowinsert模式）"></a>更新导出（allowinsert模式）</h2><h6 id="准备HDFS数据-2"><a href="#准备HDFS数据-2" class="headerlink" title="准备HDFS数据"></a>准备HDFS数据</h6><p>在HDFS &#x2F;sqoop&#x2F;allowinsert_1&#x2F;目录的下创建一个文件allowinsert_1.txt</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1201,gopal,manager,50000</span><br><span class="line">1202,manisha,preader,50000</span><br><span class="line">1203,kalil,php dev,30000</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/38.jpg" alt="图 38"></p>
+<h6 id="手动创建mysql中的目标表-2"><a href="#手动创建mysql中的目标表-2" class="headerlink" title="手动创建mysql中的目标表"></a>手动创建mysql中的目标表</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; USE userdb;</span><br><span class="line">mysql&gt; CREATE TABLE allowinsert ( </span><br><span class="line">   id INT NOT NULL PRIMARY KEY, </span><br><span class="line">   name VARCHAR(20), </span><br><span class="line">   deg VARCHAR(20),</span><br><span class="line">   salary INT);</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/39.jpg" alt="图 39"></p>
+<h6 id="先执行全部导出操作-1"><a href="#先执行全部导出操作-1" class="headerlink" title="先执行全部导出操作"></a>先执行全部导出操作</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#example12-1-hdfs-mysql-export-allowinsert</span><br><span class="line">bin/sqoop export \</span><br><span class="line">--connect jdbc:mysql://node1:3306/userdb \</span><br><span class="line">--username root \</span><br><span class="line">--password hadoop \</span><br><span class="line">--table allowinsert \</span><br><span class="line">--export-dir /sqoop/allowinsert_1/</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/40.jpg" alt="图 40"></p>
+<h6 id="新增文件"><a href="#新增文件" class="headerlink" title="新增文件"></a>新增文件</h6><p>创建文件allowinsert_2.txt。修改前三条数据并且新增了一条记录。上传至 &#x2F;sqoop&#x2F;allowinsert_2&#x2F;目录下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1201,gopal,manager,1212</span><br><span class="line">1202,manisha,preader,1313</span><br><span class="line">1203,kalil,php dev,1414</span><br><span class="line">1204,allen,java,1515</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/41.jpg" alt="图 41"></p>
+<h6 id="执行更新导出-1"><a href="#执行更新导出-1" class="headerlink" title="执行更新导出"></a>执行更新导出</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#example12-2-hdfs-mysql-export-allowinsert</span><br><span class="line">bin/sqoop export \</span><br><span class="line">--connect jdbc:mysql://node1:3306/userdb \</span><br><span class="line">--username root --password hadoop \</span><br><span class="line">--table allowinsert \</span><br><span class="line">--export-dir /sqoop/allowinsert_2/ \</span><br><span class="line">--update-key id \</span><br><span class="line">--update-mode allowinsert</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/42.jpg" alt="图 42"></p>
+<h2 id="sqoop-job作业介绍"><a href="#sqoop-job作业介绍" class="headerlink" title="sqoop job作业介绍"></a>sqoop job作业介绍</h2><h6 id="job语法"><a href="#job语法" class="headerlink" title="job语法"></a>job语法</h6><p>以下是创建Sqoop作业的语法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sqoop job (generic-args) (job-args)</span><br><span class="line">   [-- [subtool-name] (subtool-args)]</span><br><span class="line"></span><br><span class="line">$ sqoop-job (generic-args) (job-args)</span><br><span class="line">   [-- [subtool-name] (subtool-args)]</span><br></pre></td></tr></table></figure>
+<h6 id="创建job-–create"><a href="#创建job-–create" class="headerlink" title="创建job(–create)"></a>创建job(–create)</h6><p>在这里，我们创建一个名为myjob，这可以从RDBMS表的数据导入到HDFS作业。下面的命令用于创建一个从DB数据库的employee表导入到HDFS文件的作业</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#example13-1-mysql-hdfs-job</span><br><span class="line">bin/sqoop job --create myjob -- import --connect jdbc:mysql://node1:3306/userdb \</span><br><span class="line">--username root \</span><br><span class="line">--password hadoop \</span><br><span class="line">--target-dir /sqoop/sqoopresult555 \</span><br><span class="line">--table emp --m 1</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/43.jpg" alt="图 43"></p>
+<h6 id="验证job-–list"><a href="#验证job-–list" class="headerlink" title="验证job (–list)"></a>验证job (–list)</h6><p><strong>‘–list’</strong> 参数是用来验证保存的作业。下面的命令用来验证保存Sqoop作业的列表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#example13-2-mysql-hdfs-job</span><br><span class="line">bin/sqoop job --list</span><br></pre></td></tr></table></figure>
+<p>它显示了保存作业列表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Available jobs: </span><br><span class="line">   myjob</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/44.jpg" alt="图 44"></p>
+<h6 id="检查job-–show"><a href="#检查job-–show" class="headerlink" title="检查job(–show)"></a>检查job(–show)</h6><p><strong>‘–show’</strong> 参数用于检查或验证特定的工作，及其详细信息。以下命令和样本输出用来验证一个名为myjob的作业</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#example13-3-mysql-hdfs-job</span><br><span class="line">bin/sqoop job --show myjob</span><br></pre></td></tr></table></figure>
+<p>它显示了工具和它们的选择，这是使用在myjob中作业情况</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Job: myjob </span><br><span class="line"> Tool: import Options:</span><br><span class="line"> ---------------------------- </span><br><span class="line"> direct.import = true</span><br><span class="line"> codegen.input.delimiters.record = 0</span><br><span class="line"> hdfs.append.dir = false </span><br><span class="line"> db.table = employee</span><br><span class="line"> ...</span><br><span class="line"> incremental.last.value = 1206</span><br><span class="line"> ...</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/45.jpg" alt="图 45"></p>
+<h6 id="执行job-–exec"><a href="#执行job-–exec" class="headerlink" title="执行job (–exec)"></a>执行job (–exec)</h6><p><strong>‘–exec’</strong> 选项用于执行保存的作业。下面的命令用于执行保存的作业称为myjob</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#example13-4-mysql-hdfs-job</span><br><span class="line">bin/sqoop job --exec myjob</span><br></pre></td></tr></table></figure>
+<p>它会显示下面的输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">10/08/19 13:08:45 INFO tool.CodeGenTool: Beginning code generation </span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/46.jpg" alt="图 46"></p>
+<h6 id="job的免密输入"><a href="#job的免密输入" class="headerlink" title="job的免密输入"></a>job的免密输入</h6><p>sqoop在创建job时，使用–password-file参数，可以避免输入mysql密码，如果使用–password将出现警告，并且每次都要手动输入密码才能执行job，<strong>sqoop规定密码文件必须存放在HDFS上，并且权限必须是400</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo -n &quot;hadoop&quot; &gt; node1-mysql.pwd</span><br><span class="line">hadoop fs -mkdir -p /sqoop/pwd/</span><br><span class="line">hadoop fs -put node1-mysql.pwd /sqoop/pwd/</span><br><span class="line">hadoop fs -chmod 400 /sqoop/pwd/node1-mysql.pwd</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/47.jpg" alt="图 47"></p>
+<p><strong>检查sqoop的sqoop-site.xml是否存在如下配置</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;sqoop.metastore.client.record.password&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;true&lt;/value&gt;</span><br><span class="line">    &lt;description&gt;If true, allow saved passwords in the metastore.</span><br><span class="line">    &lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/48.jpg" alt="图 48"></p>
+<p><strong>创建sqoop job</strong><br>在创建job时，使用–password-file参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#example14-1-mysql-hdfs-job-nopwd</span><br><span class="line">bin/sqoop job --create myjob2 -- import --connect jdbc:mysql://node1:3306/userdb \</span><br><span class="line">--username root \</span><br><span class="line">--password-file /sqoop/pwd/node1-mysql.pwd \</span><br><span class="line">--target-dir /sqoop/sqoopresult666 \</span><br><span class="line">--table emp --m 1</span><br></pre></td></tr></table></figure>
+<p><img src="/../image_sqoop/49.jpg" alt="图 49"></p>
+<p><strong>执行job</strong><br>通过命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#example14-2-mysql-hdfs-job-nopwd</span><br><span class="line">sqoop job -exec myjob2</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Sqoop的安装的前提是要将Java、mysql、hadoop、hive</span><br><span class="line">环境配置完成，如果这些环境没有配置的话sqoop将没有办法进行安装。</span><br><span class="line">一开始在创建emp表时，需要用到navicat软件，</span><br><span class="line">在下载并激活完成之后并不知道要如何进行连接，在查询并观看视频学习之后才了解到。</span><br><span class="line">在sqoop导入数据库时遇到了ERROR manager.SqlManager: Error executing statement的问题，</span><br><span class="line">在查询了很长的时间才得到解决。总的来说这次作业还是可以让人学到不少的东西的。</span><br></pre></td></tr></table></figure>
+                </section>
+
+                
+                
+
+                
+
+            </article>
+
+            
+            <nav class="dis_flex al_post_nav">
+                <a class="al_post_nav_item dis_flex_acenter" href="/2023/06/20/Kafka%20zookeeper%20/">
+                    
+                        <svg class="al_arrow">
+                            <use xmlns="http://www.w3.org/2000/svg" xlink:href="/assets/svg_icons.svg#svg-arrow-left"></use>
+                        </svg>
+                        <span class="al_text_ellipsis al_post_nav_desc">Kafka zookeeper 环境部署</span>
+                    
+                </a>
+                <a class="al_post_nav_item dis_flex_acenter" href="/2023/06/16/flume%E6%95%99%E7%A8%8B/">
+                    
+                        <span class="al_text_ellipsis al_post_nav_desc">Flume教程</span>
+                        <svg class="al_arrow">
+                            <use xmlns="http://www.w3.org/2000/svg" xlink:href="/assets/svg_icons.svg#svg-arrow-right"></use>
+                        </svg>
+                    
+                </a>
+            </nav>
+        </div>
+    </div>
+
+
+        <div class="al_index_footer dis_flex_center">
+    <div class="al_index_footer_item al_index_footer_title">
+        John Doe
+    </div>
+
+    
+    
+
+    <div class="al_index_footer_item al_index_footer_extra">
+        Created By 
+        <a target="_blank" rel="noopener" href="https://github.com/iGuan7u/Acetolog">AcetoLog</a>
+         · Power By 
+        <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>
+    </div>
+
+    <div class="al_index_footer_item al_index_footer_extra_right">
+        All Right Reserved
+    </div>
+</div>
+
+        <script type="text/javascript" async="async" src="/javascripts/acelog.js"></script>
+        
+        
+        
+        
+        
+
+    </body>
+</html>
