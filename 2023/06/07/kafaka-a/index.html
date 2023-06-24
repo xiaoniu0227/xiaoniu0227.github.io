@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        
+    
+    <link rel='stylesheet' href="/./css/dracula.css">
+
+        <title>kafka-eagle</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2.0">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="manifest" href="/site.webmanifest">
+
+    <meta name="generator" content="Hexo 6.3.0"></head>
+    <body>
+        <header class="al_header al_pos_fixed">
+    <div class="al_header_container dis_flex_jcenter">
+        <div class="al_header_container_left">
+            <div class="al_header_site_title">
+                <a href="/">Hexo</a>
+            </div>
+        </div>
+
+        <div class="dis_flex_jcenter">
+            <div class="al_header_setting">
+                <svg class="al_header_icon">
+                    <use xmlns="http://www.w3.org/2000/svg" xlink:href="/assets/svg_icons.svg#svg-menu"></use>
+                </svg>
+            </div>
+        </div>
+    </div>
+</header>
+
+        <div class="al_sidebar">
+
+    <div class="al_sidebar_overlay al_full_cover"></div>
+
+    <div class="al_pos_fixed al_sidebar_cnt">
+        <div class="dis_flex_acenter al_sidebar_header">
+            <h3>Hexo</h3>
+            <div class="al_sidebar_close al_header_setting">
+                <svg class="al_header_icon">
+                    <use xmlns="http://www.w3.org/2000/svg" xlink:href="/assets/svg_icons.svg#svg-close"></use>
+                </svg>
+            </div>
+        </div>
+
+        <div class="al_sidebar_author_cnt">
+
+            <div class="al_sidebar_author_info">
+                <h4>John Doe</h4>
+                <img class="al_sidebar_avatar" src="https://yourAvatorURL">
+                <p></p>
+            </div>
+
+            
+        </div>
+    </div>
+</div>
+
+        
+    <div class="dis_flex_center al_lightbox_cnt al_full_cover">
+        <img class="al_lightbox_img"/>
+    </div>
+    <div class="al_page_background dis_flex_center al_full_cover"></div>
+    <div class="al_page_container">
+        <div class="al_pos_ab al_fake_background"></div>
+        <div class="al_main_container al_shadow al_main_page_container">
+            <article class="al_article">
+                <header>
+                    <h1 class="al_page_title">
+                        kafka-eagle
+                    </h1>
+                    <div class="al_page_info dis_flex">
+                        <div class="al_page_content_info">
+                            Wed June 7, 2023 09:19 AM
+                        </div>
+
+                        
+
+                        
+                        <span class="tags"></span>
+                    </div>
+                </header>
+
+                
+                    <div class="al_page_content_outline">
+                        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9C%A8kafka%E9%9B%86%E7%BE%A4%E4%B8%AD%E9%83%A8%E7%BD%B2Eagle%E8%BF%90%E7%BB%B4%E7%9B%91%E6%8E%A7"><span class="toc-text">在kafka集群中部署Eagle运维监控</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B8%8A%E4%BC%A0%E5%B9%B6%E8%A7%A3%E5%8E%8B"><span class="toc-text">1.上传并解压</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">2.修改环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%BF%9B%E5%85%A5%E5%88%B0kafka-eagle%E7%9A%84conf%E7%9B%AE%E5%BD%95%E4%B8%8B%E4%BF%AE%E6%94%B9system-config-properties%E9%87%8C%E9%9D%A2%E7%9A%84%E5%86%85%E5%AE%B9%E3%80%82"><span class="toc-text">3.进入到kafka-eagle的conf目录下修改system-config.properties里面的内容。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%9C%A8%E5%90%AF%E5%8A%A8eagle%E5%89%8D%E9%9C%80%E8%A6%81%E5%B0%86kafka%E5%92%8Czookeeper%E9%9B%86%E7%BE%A4%E5%90%AF%E5%8A%A8%EF%BC%8C%E8%BE%93%E5%85%A5%E5%90%AF%E5%8A%A8%E5%91%BD%E4%BB%A4%E5%90%8E%EF%BC%8C%E6%A3%80%E6%9F%A5%E9%9B%86%E7%BE%A4%E6%98%AF%E5%90%A6%E5%90%AF%E5%8A%A8%E6%88%90%E5%8A%9F%E3%80%82"><span class="toc-text">4.在启动eagle前需要将kafka和zookeeper集群启动，输入启动命令后，检查集群是否启动成功。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%90%AF%E5%8A%A8%E5%AE%8C%E6%88%90%E5%99%A8%E7%BE%A4%E5%90%8E%EF%BC%8C%E8%BF%9B%E5%85%A5%E5%88%B0kafka-eagle%E7%9A%84bin%E7%9B%AE%E5%BD%95%E4%B8%8B%EF%BC%8C%E5%90%AF%E5%8A%A8%E8%84%9A%E6%9C%ACke-sh%E6%9D%A5%E5%90%AF%E5%8A%A8eagle%E3%80%82"><span class="toc-text">5.启动完成器群后，进入到kafka-eagle的bin目录下，启动脚本ke.sh来启动eagle。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E8%84%9A%E6%9C%AC%E5%90%AF%E5%8A%A8%E6%88%90%E5%8A%9F%E4%B9%8B%E5%90%8E%E8%BF%9B%E5%85%A5%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BE%93%E5%85%A5%E7%94%9F%E6%88%90%E7%BD%91%E5%9D%80%E8%BF%9B%E5%85%A5%E5%88%B0%E7%BD%91%E9%A1%B5%E4%B8%AD%E8%BE%93%E5%85%A5%EF%BC%9A"><span class="toc-text">6.脚本启动成功之后进入浏览器输入生成网址进入到网页中输入：</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                
+
+                
+                <section id="post-body">
+                    <h1 id="在kafka集群中部署Eagle运维监控"><a href="#在kafka集群中部署Eagle运维监控" class="headerlink" title="在kafka集群中部署Eagle运维监控"></a>在kafka集群中部署Eagle运维监控</h1><h3 id="1-上传并解压"><a href="#1-上传并解压" class="headerlink" title="1.上传并解压"></a>1.上传并解压</h3><ol>
+<li>   上传kafka-eagle-bin-mast.zip并解压，进入之后再将里面的压缩包解压，使用rz指令进行上传操作，然后使用tar指令进行解压。<br><img src="/../images/1.jpg" alt="图 1"></li>
+</ol>
+<h3 id="2-修改环境变量"><a href="#2-修改环境变量" class="headerlink" title="2.修改环境变量"></a>2.修改环境变量</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile      #修改后使用：wq!进行保存并退出</span><br></pre></td></tr></table></figure>
+<p><img src="/../images/2.jpg" alt="图 2"></p>
+<h3 id="3-进入到kafka-eagle的conf目录下修改system-config-properties里面的内容。"><a href="#3-进入到kafka-eagle的conf目录下修改system-config-properties里面的内容。" class="headerlink" title="3.进入到kafka-eagle的conf目录下修改system-config.properties里面的内容。"></a>3.进入到kafka-eagle的conf目录下修改system-config.properties里面的内容。</h3><p><img src="/../images/4.jpg" alt="图 4"></p>
+<h3 id="4-在启动eagle前需要将kafka和zookeeper集群启动，输入启动命令后，检查集群是否启动成功。"><a href="#4-在启动eagle前需要将kafka和zookeeper集群启动，输入启动命令后，检查集群是否启动成功。" class="headerlink" title="4.在启动eagle前需要将kafka和zookeeper集群启动，输入启动命令后，检查集群是否启动成功。"></a>4.在启动eagle前需要将kafka和zookeeper集群启动，输入启动命令后，检查集群是否启动成功。</h3><p><img src="/../images/5.jpg" alt="图 5"></p>
+<h3 id="5-启动完成器群后，进入到kafka-eagle的bin目录下，启动脚本ke-sh来启动eagle。"><a href="#5-启动完成器群后，进入到kafka-eagle的bin目录下，启动脚本ke-sh来启动eagle。" class="headerlink" title="5.启动完成器群后，进入到kafka-eagle的bin目录下，启动脚本ke.sh来启动eagle。"></a>5.启动完成器群后，进入到kafka-eagle的bin目录下，启动脚本ke.sh来启动eagle。</h3><p><img src="/../images/6.jpg" alt="图 6"></p>
+<h3 id="6-脚本启动成功之后进入浏览器输入生成网址进入到网页中输入："><a href="#6-脚本启动成功之后进入浏览器输入生成网址进入到网页中输入：" class="headerlink" title="6.脚本启动成功之后进入浏览器输入生成网址进入到网页中输入："></a>6.脚本启动成功之后进入浏览器输入生成网址进入到网页中输入：</h3><p>账号：admin 密码123456<br><img src="/../images/7.jpg" alt="图7"></p>
+<p>6.1数据板块<br>展示kafka集群的Broker数、Consumer数、Topic数、以及Topic Capacity Top10和Topic LogSize Top10数据的模块显示在页面中。<br><img src="/../images/8.jpg" alt="图 8"><br>6.2主题板块<br>有许多主题、功能在页面左侧的黑色功能栏中，Kafka-eagle中许多功能都可以在本页面中实现，该模块包含主题创建、主题管理、主题预览、KSQL查询主题、主题数据写入、主题属性配置等。<br><img src="/../images/9.jpg" alt="图 9"><br>6.3消费者组<br>该模块包含监控不同消费者组中的Topic被消费的详情，例如LogSize、Offsets、以及Lag等。<br><img src="/../images/10.jpg" alt="图 10"><br>6.4集群管理<br>该模块包含Kafka的IP和端口、版本号、启动时间、Zookeeper的Leader和Follower。同时，还支持多Kafka集群切换，以及Zookeeper Client数据查看等功能。<br><a href="../images/11.jpg">图 11</a><br>6.5指标监控<br>该模块包含监控Kafka集群和Zookeeper集群的核心指标，消息大小接收与发送趋势、Zookeeper的连接数趋势、包含Kafka的消息发送趋势等。本监控模块可以通过移动鼠标光标来完成对数据的查看。<br><a href="../images/12.jpg">图 12</a><br>6.6系统管理<br>该系统包含用户管理，例如创建用户、用户授权、资源管理等。<br><a href="../images/13.jpg">图 13</a></p>
+
+                </section>
+
+                
+                
+
+                
+
+            </article>
+
+            
+            <nav class="dis_flex al_post_nav">
+                <a class="al_post_nav_item dis_flex_acenter" href="/2023/06/07/docker/">
+                    
+                        <svg class="al_arrow">
+                            <use xmlns="http://www.w3.org/2000/svg" xlink:href="/assets/svg_icons.svg#svg-arrow-left"></use>
+                        </svg>
+                        <span class="al_text_ellipsis al_post_nav_desc">docker 部署</span>
+                    
+                </a>
+                <a class="al_post_nav_item dis_flex_acenter" href="/2023/06/07/spark%E5%85%A8%E6%B5%81%E7%A8%8B%E9%85%8D%E7%BD%AESparkHA-SparkYarn/">
+                    
+                        <span class="al_text_ellipsis al_post_nav_desc">spark全流程配置SparkHA|SparkYarn</span>
+                        <svg class="al_arrow">
+                            <use xmlns="http://www.w3.org/2000/svg" xlink:href="/assets/svg_icons.svg#svg-arrow-right"></use>
+                        </svg>
+                    
+                </a>
+            </nav>
+        </div>
+    </div>
+
+
+        <div class="al_index_footer dis_flex_center">
+    <div class="al_index_footer_item al_index_footer_title">
+        John Doe
+    </div>
+
+    
+    
+
+    <div class="al_index_footer_item al_index_footer_extra">
+        Created By 
+        <a target="_blank" rel="noopener" href="https://github.com/iGuan7u/Acetolog">AcetoLog</a>
+         · Power By 
+        <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>
+    </div>
+
+    <div class="al_index_footer_item al_index_footer_extra_right">
+        All Right Reserved
+    </div>
+</div>
+
+        <script type="text/javascript" async="async" src="/javascripts/acelog.js"></script>
+        
+        
+        
+        
+        
+
+    </body>
+</html>
